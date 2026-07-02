@@ -12,3 +12,5 @@ Thumbs.db
 tmp_*/
 *.tmp
 简历/
+*.docx
+*.pdf
