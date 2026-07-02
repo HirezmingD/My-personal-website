@@ -18,7 +18,7 @@
 | 环境 | 地址 |
 |------|------|
 | 🖥️ 本地预览 | 双击 `docs/index.html` |
-| 🌐 GitHub Pages | `https://<username>.github.io/jhz-homepage/` |
+| 🌐 GitHub Pages | [hirezmingd.github.io/My-personal-website](https://hirezmingd.github.io/My-personal-website/) |
 
 ---
 
@@ -116,7 +116,7 @@ server {
 
 1. 将此仓库推送到 GitHub
 2. Settings → Pages → Source: `Deploy from a branch` → 选择 `main` 分支，目录选择 `/docs`
-3. 访问 `https://<username>.github.io/<repo>/`
+3. 访问 `https://hirezmingd.github.io/My-personal-website/`
 
 ### 方式三：本地预览
 
