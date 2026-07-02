@@ -1,3 +1,14 @@
-26.3.12简历(运营产品策划)-2.docx
-*.pdf
-*.docx
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Temp
+tmp_*/
+*.tmp
+简历/

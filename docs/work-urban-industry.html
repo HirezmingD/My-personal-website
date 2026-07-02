@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>城市产业空间智能助手 · 江和洲 Hezhou Jiang</title>
+<meta name="description" content="面向县域政府的AI自进化产业用地评估系统——让每一块地都有数据支撑的产业答案。">
+<style>
+:root{
+  --paper:#F6F7F9;--ink:#12161D;--muted:#59626F;--line:#E3E6EB;
+  --accent:#13497E;--accent-2:#2D6BB8;--card:#FFFFFF;--soft:#EEF1F5;
+  --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --font-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono","Roboto Mono",monospace;
+  --wrap:860px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-size:16px;line-height:1.72;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-2)}
+html[data-lang="zh"] .en{display:none}
+html[data-lang="en"] .zh{display:none}
+
+.topbar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.9);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:var(--wrap);margin:0 auto;padding:12px 28px;display:flex;align-items:center;gap:16px}
+.back{font-family:var(--font-mono);font-size:.82rem;letter-spacing:.04em;color:var(--muted)}
+.back:hover{color:var(--ink)}
+.langbtn{margin-left:auto;font-family:var(--font-mono);font-size:.76rem;letter-spacing:.06em;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:6px 12px;border-radius:2px;cursor:pointer}
+.langbtn:hover{border-color:var(--accent);color:var(--accent)}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+
+.head{padding:56px 0 40px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--font-mono);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(1.9rem,4.4vw,2.9rem);line-height:1.12;font-weight:800;letter-spacing:-.02em;margin:16px 0 10px}
+.sub{color:var(--muted);font-size:1.06rem;max-width:60ch;margin:0 0 22px}
+.metaline{font-family:var(--font-mono);font-size:.78rem;color:var(--muted);letter-spacing:.02em;display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:22px}
+.metaline b{color:var(--ink);font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.03em;color:var(--ink);background:var(--soft);border:1px solid var(--line);border-radius:2px;padding:4px 9px}
+.tag.solid{color:#fff;background:var(--accent);border-color:var(--accent)}
+
+.tldr{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:24px 26px;margin:34px 0}
+.tldr h2{font-family:var(--font-mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 14px;border:0;padding:0}
+.tldr ul{list-style:none;margin:0;padding:0}
+.tldr li{padding:9px 0;border-top:1px solid var(--line);display:flex;gap:12px;font-size:.98rem;line-height:1.6}
+.tldr li:first-child{border-top:0}
+.tldr li:before{content:"→";color:var(--accent);font-family:var(--font-mono);flex-shrink:0}
+
+section{padding:46px 0;border-top:1px solid var(--line)}
+.shead{display:flex;align-items:baseline;gap:14px;margin-bottom:22px}
+.shead .idx{font-family:var(--font-mono);font-size:.82rem;color:var(--accent);letter-spacing:.06em;flex-shrink:0}
+.shead h2{font-size:clamp(1.35rem,2.6vw,1.7rem);font-weight:750;letter-spacing:-.01em;margin:0;border:0;padding:0}
+.shead .rule{flex:1;height:1px;background:var(--line);align-self:center}
+h3.sub-h{font-size:1.04rem;font-weight:700;margin:30px 0 6px;color:var(--ink)}
+p{margin:0 0 16px;max-width:70ch}
+.lead{font-size:1.06rem}
+em.hl{font-style:normal;color:var(--accent);font-weight:600}
+
+figure.fig{margin:30px 0;padding:0}
+figure.fig img{width:100%;display:block;border:1px solid var(--line);border-radius:4px;background:var(--card);cursor:zoom-in}
+figcaption{font-size:.86rem;color:var(--muted);margin-top:10px;line-height:1.55;max-width:72ch}
+figcaption .fnum{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.04em;color:var(--accent);margin-right:6px}
+figcaption .note{display:block;font-size:.8rem;opacity:.85;margin-top:3px}
+
+/* Two-col screenshot grid for project page */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:24px 0}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+
+.tblblock{margin:30px 0}
+.tblcap{font-size:.9rem;color:var(--ink);margin-bottom:10px}
+.tblcap .tnum{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.04em;color:var(--accent);margin-right:6px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:4px;background:var(--card)}
+table.rt{border-collapse:collapse;width:100%;font-size:.82rem;min-width:520px}
+table.rt th,table.rt td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--line)}
+table.rt thead th{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.02em;font-weight:600;color:var(--muted);background:var(--soft)}
+
+.ladder{list-style:none;margin:22px 0;padding:0;counter-reset:step}
+.ladder li{position:relative;padding:14px 0 14px 44px;border-top:1px solid var(--line)}
+.ladder li:first-child{border-top:0}
+.ladder li:before{counter-increment:step;content:counter(step);position:absolute;left:0;top:13px;width:26px;height:26px;border:1px solid var(--accent);border-radius:50%;color:var(--accent);font-family:var(--font-mono);font-size:.8rem;display:flex;align-items:center;justify-content:center}
+.ladder .mname{font-weight:700;color:var(--ink)}
+.ladder .mtag{font-family:var(--font-mono);font-size:.72rem;color:var(--accent);letter-spacing:.03em;margin-left:8px}
+.ladder .mdesc{color:var(--muted);font-size:.94rem;margin-top:2px}
+
+/* code block */
+pre{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:16px 20px;font-family:var(--font-mono);font-size:.78rem;line-height:1.55;overflow-x:auto;color:var(--ink);margin:18px 0}
+
+footer{padding:34px 0 52px;border-top:1px solid var(--line);color:var(--muted);font-family:var(--font-mono);font-size:.76rem;letter-spacing:.03em;margin-top:12px}
+.footrow{max-width:var(--wrap);margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+.lb{position:fixed;inset:0;background:rgba(10,14,20,.86);display:none;align-items:center;justify-content:center;z-index:100;padding:24px;cursor:zoom-out}
+.lb.on{display:flex}
+.lb img{max-width:100%;max-height:100%;border-radius:4px}
+
+@media (max-width:640px){section{padding:38px 0}.head{padding:38px 0 30px}h1{font-size:1.7rem}}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="in">
+  <a class="back" href="./index.html#proj">← <span class="zh">江和洲 · 代表性项目</span><span class="en">Hezhou Jiang · Selected work</span></a>
+  <button class="langbtn" id="lang" aria-label="switch language"><span class="zh">EN</span><span class="en">中文</span></button>
+</div></div>
+
+<main class="wrap">
+
+  <!-- ============ HEADER ============ -->
+  <header class="head">
+    <div class="eyebrow"><span class="zh">代表性项目 00 · 城市产业空间智能助手</span><span class="en">Selected work 00 · Urban Industry Assistant</span></div>
+    <h1><span class="zh">城市产业空间智能助手</span><span class="en">Urban Industry Assistant</span></h1>
+    <p class="sub"><span class="zh">面向县域政府的 AI 自进化产业用地评估系统——让每一块地都有数据支撑的产业答案。《城市天际线》搬进现实，真实地图，进化AI，规划、招商、择地。</span><span class="en">An AI self-evolving industrial land evaluation system for county governments — bringing "Cities: Skylines" into reality with real maps, evolving AI, covering planning, investment attraction, and site selection.</span></p>
+    <div class="metaline">
+      <span><b><span class="zh">类型</span><span class="en">Type</span></b> · <span class="zh">独立全栈项目</span><span class="en">Independent full-stack project</span></span>
+      <span><b><span class="zh">周期</span><span class="en">Timeline</span></b> · 2026.05–<span class="zh">至今</span><span class="en">present</span></span>
+      <span><b><span class="zh">规模</span><span class="en">Scale</span></b> · <span class="zh">6,500+ 行代码 · 9 版本迭代</span><span class="en">6,500+ LoC · 9 releases</span></span>
+      <span><b>Demo</b> · <a href="http://124.222.191.117:8000/static/index.html" target="_blank" rel="noopener">124.222.191.117:8000 ↗</a></span>
+    </div>
+    <div class="tags">
+      <span class="tag solid">185,564 网格单元</span>
+      <span class="tag">74 评估指标</span><span class="tag">14 产业方向</span><span class="tag">v2.4.0</span>
+    </div>
+  </header>
+
+  <!-- ============ KEY TAKEAWAYS ============ -->
+  <div class="tldr">
+    <h2><span class="zh">核心亮点</span><span class="en">Highlights</span></h2>
+    <ul>
+      <li><span class="zh"><em class="hl">四种交互模式</em>：整体政策咨询、企业选址匹配、框选地块推荐、点选地块分析，覆盖规划-招商-择地全场景。</span><span class="en"><em class="hl">Four interaction modes</em>: policy consultation, enterprise site matching, lasso-based parcel recommendation, and click-to-inspect — covering planning, investment, and site selection.</span></li>
+      <li><span class="zh"><em class="hl">AI 自进化</em>：集成 EvoMap 协议，每次评估提取经验基因（Gene），打包为经验胶囊（Capsule）——让 Agent 的产业评估方法论随使用逐步优化。</span><span class="en"><em class="hl">Self-evolving AI</em>: integrates the EvoMap protocol — each evaluation extracts experience genes and capsules them, progressively refining the agent's industrial assessment methodology.</span></li>
+      <li><span class="zh"><em class="hl">数据不出域</em>：敏感土地利用数据永久留在本地 SQLite（R-tree 空间索引），通过 EvoMap 协议发布的只有脱敏后的评估方法论——数据安全与知识共享兼得。</span><span class="en"><em class="hl">Data sovereignty</em>: sensitive land-use data stays local (SQLite + R-tree); only de-identified assessment methodology is shared via EvoMap — security and knowledge sharing in one design.</span></li>
+      <li><span class="zh"><em class="hl">185,564 个 100m 网格</em>覆盖桐庐全县，74 字段评估指标体系（交通可达性、产业集聚度、权属协调度等），框选查询 &lt;200ms。</span><span class="en"><em class="hl">185,564 100m-grid cells</em> covering Tonglu County, 74-field evaluation system (accessibility, industrial agglomeration, tenure coordination, etc.), spatial query &lt;200ms.</span></li>
+    </ul>
+  </div>
+
+  <!-- ============ 01: BACKGROUND ============ -->
+  <section id="s1">
+    <div class="shead"><span class="idx">01</span><h2><span class="zh">项目背景与核心命题</span><span class="en">Background & core problem</span></h2><span class="rule"></span></div>
+    <p class="zh">中国县域经济中，土地一级市场由政府主导，但"这块地适合什么产业"的决策<em class="hl">高度依赖人工经验</em>。规划部门面对数十万宗地块和快速变化的产业政策，缺乏数据驱动的决策工具。另一方面，中小企业（尤其是制造业）在选址时面临信息不对称——他们不知道哪些县域、哪些地块符合自身需求，只能通过中介或关系网络低效获取信息。</p>
+    <p class="en">In China's county-level economy, the primary land market is government-led, yet the decision of "which industry fits this parcel" remains <em class="hl">heavily reliant on manual expertise</em>. Planning departments face hundreds of thousands of parcels and rapidly shifting industrial policies without data-driven tools. Meanwhile, SMEs face information asymmetry in site selection — they lack efficient ways to identify suitable counties and parcels matching their needs.</p>
+
+    <p class="zh">本系统让 AI Agent 在每次评估中<em class="hl">自进化</em>，逐渐逼近最优的"地—产"匹配逻辑。政府端可获得全县产业最优布局建议，企业端可按需获取最优用地匹配——一个系统，两类用户，三项核心能力（规划评估、产业招商、企业择地）。</p>
+    <p class="en">This system lets the AI agent <em class="hl">self-evolve</em> with each evaluation, progressively approaching optimal land-industry matching logic. Government users receive county-wide industrial layout recommendations; enterprise users get optimal site matches — one system, two user roles, three core capabilities (planning, investment, site selection).</p>
+  </section>
+
+  <!-- ============ 02: INTERACTION MODES ============ -->
+  <section id="s2">
+    <div class="shead"><span class="idx">02</span><h2><span class="zh">四种交互模式</span><span class="en">Four interaction modes</span></h2><span class="rule"></span></div>
+
+    <div class="grid2">
+      <figure class="fig" style="margin:0">
+        <img src="https://obsidian-1-1315010744.cos.ap-shanghai.myqcloud.com/pic/2022/202606211038650.png" alt="场景一：询问AI" loading="lazy">
+        <figcaption><span class="fnum">场景一</span><span class="zh">询问 AI — 整体政策咨询。AI 基于县域土地利用现状，回答产业发展、用地策略等宏观问题。</span><span class="en">Ask AI — policy consultation. The AI answers macro-level questions on industrial development and land-use strategy based on county-wide land-use data.</span></figcaption>
+      </figure>
+      <figure class="fig" style="margin:0">
+        <img src="https://obsidian-1-1315010744.cos.ap-shanghai.myqcloud.com/pic/2022/202606211038749.png" alt="场景二：企业匹配" loading="lazy">
+        <figcaption><span class="fnum">场景二</span><span class="zh">单选/多选企业 — 企业选址匹配。勾选目标企业后，AI 在全域范围内匹配最优用地。</span><span class="en">Enterprise matching — select target enterprises; the AI finds optimal parcels across the entire county.</span></figcaption>
+      </figure>
+      <figure class="fig" style="margin:0">
+        <img src="https://obsidian-1-1315010744.cos.ap-shanghai.myqcloud.com/pic/2022/202606211038759.png" alt="场景三：框选地块" loading="lazy">
+        <figcaption><span class="fnum">场景三</span><span class="zh">框选地块 — 合适产业推荐。在地图上框选区域后，AI 基于 74 维指标评估并推荐适配产业。</span><span class="en">Lasso parcel — the AI evaluates the selected area against 74 indicators and recommends suitable industries.</span></figcaption>
+      </figure>
+      <figure class="fig" style="margin:0">
+        <img src="https://obsidian-1-1315010744.cos.ap-shanghai.myqcloud.com/pic/2022/202606211038768.png" alt="场景四：点选地块" loading="lazy">
+        <figcaption><span class="fnum">场景四</span><span class="zh">点选地块 — 用地及区位分析。点击单个网格，弹出 sticky note 展示该地块的详细信息。</span><span class="en">Click parcel — click a grid cell to inspect detailed land-use and location analysis via a sticky note.</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ 03: ARCHITECTURE ============ -->
+  <section id="s3">
+    <div class="shead"><span class="idx">03</span><h2><span class="zh">技术架构</span><span class="en">Technical architecture</span></h2><span class="rule"></span></div>
+
+    <pre>浏览器 (Leaflet + Chart.js + 智慧蓝 UI)
+    │
+    ├─ 天地图卫星底图 (WMTS)
+    ├─ 渔网矢量叠加层 (CGCS2000 → WGS84)
+    ├─ 单格悬停高亮 / 点选 sticky note / 行政区划悬停
+    └─ 对话面板 / 企业匹配 / 自进化雷达
+         │
+    FastAPI 后端 (Python 3.11)
+    ├─ /api/map/query       — 框选查询
+    ├─ /api/map/ninegrid    — 鼠标悬停定位
+    ├─ /api/map/grid/{id}   — 单格详情
+    ├─ /api/agent/chat      — AI 对话评估 (DeepSeek)
+    ├─ /api/enterprise/match — 企业择地匹配 (v2.4 独立引擎)
+    └─ /api/evomap/*        — 自进化状态 & 经验胶囊
+         │
+    SQLite + R-tree 空间索引
+    ├─ land_grid_L0 (100m × 185,564 格)
+    └─ land_grid_L1~L7 (多级聚合金字塔)</pre>
+
+    <p class="zh">数据底座：185,564 个 100m×100m 渔网单元覆盖桐庐全县，CGCS2000→WGS84 坐标转换后入库。74 字段评估指标体系涵盖<em class="hl">交通可达性、产业集聚度、权属协调度、设施距离</em>等维度。采用 <em class="hl">R-tree 空间索引</em>实现 L0-L7 八级 LOD 金字塔，框选查询响应时间 &lt;200ms。企业数据库覆盖精密制造、生物制药、物流仓储、数字经济等 14 个产业方向。</p>
+    <p class="en">Data foundation: 185,564 100m×100m grid cells covering Tonglu County, with CGCS2000→WGS84 coordinate transformation. The 74-field evaluation system spans <em class="hl">traffic accessibility, industrial agglomeration, tenure coordination, facility proximity</em>, and more. An <em class="hl">R-tree spatial index</em> powers an L0-L7 eight-level LOD pyramid with lasso-query responses &lt;200ms. The enterprise database covers 14 industries including precision manufacturing, biopharma, logistics, and the digital economy.</p>
+
+    <h3 class="sub-h"><span class="zh">技术栈</span><span class="en">Tech stack</span></h3>
+    <div class="tblblock">
+      <div class="tablewrap">
+        <table class="rt">
+          <thead><tr><th><span class="zh">层</span><span class="en">Layer</span></th><th><span class="zh">技术</span><span class="en">Technology</span></th></tr></thead>
+          <tbody>
+            <tr><td><span class="zh">前端</span><span class="en">Frontend</span></td><td>Leaflet.js · Chart.js · 天地图 WMTS · Vanilla JS</td></tr>
+            <tr><td><span class="zh">后端</span><span class="en">Backend</span></td><td>FastAPI · Python 3.11 · httpx (async)</td></tr>
+            <tr><td><span class="zh">数据</span><span class="en">Data</span></td><td>SQLite · R-tree · pyproj (CGCS2000→WGS84) · Shapely (WKB)</td></tr>
+            <tr><td>AI</td><td>DeepSeek Chat API · System Prompt 工程 · 多 Prompt 模板</td></tr>
+            <tr><td><span class="zh">自进化</span><span class="en">Evolution</span></td><td>EvoMap 协议 · Gene/Capsule 经验管理 · 去重 & 震荡保护</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04: SELF-EVOLUTION ============ -->
+  <section id="s4">
+    <div class="shead"><span class="idx">04</span><h2><span class="zh">自进化机制</span><span class="en">Self-evolution mechanism</span></h2><span class="rule"></span></div>
+
+    <p class="zh">本系统集成 <a href="https://github.com/EvoMap/evolver" target="_blank" rel="noopener">EvoMap</a> 自进化协议，让 Agent 的产业评估方法论<em class="hl">随每次评估逐步优化</em>。核心流程如下：</p>
+    <p class="en">The system integrates the <a href="https://github.com/EvoMap/evolver" target="_blank" rel="noopener">EvoMap</a> self-evolution protocol, allowing the agent's industrial assessment methodology to <em class="hl">improve with each evaluation</em>:</p>
+
+    <ol class="ladder">
+      <li><span class="mname"><span class="zh">提取经验基因</span><span class="en">Extract Gene</span></span><span class="mtag">Gene</span><div class="mdesc"><span class="zh">每次评估完成后，自动提取七维权重分布与产业-地类匹配偏好，形成经验基因。</span><span class="en">After each evaluation, automatically extract seven-dimensional weight distributions and industry-land type matching preferences as an experience gene.</span></div></li>
+      <li><span class="mname"><span class="zh">打包经验胶囊</span><span class="en">Package Capsule</span></span><span class="mtag">Capsule</span><div class="mdesc"><span class="zh">Gene 附带场景描述、触发原因与影响摘要，打包为经验胶囊，支持去重与震荡保护。</span><span class="en">Gene is packaged with scenario description, trigger reason, and impact summary into a capsule, with deduplication and oscillation protection.</span></div></li>
+      <li><span class="mname"><span class="zh">方法论注入</span><span class="en">Methodology injection</span></span><span class="mtag">Inject</span><div class="mdesc"><span class="zh">下次评估时，进化后的方法论自动注入 System Prompt——Agent 的知识在持续累积。</span><span class="en">Evolved methodology is automatically injected into the System Prompt for the next evaluation — the agent's knowledge accumulates continuously.</span></div></li>
+      <li><span class="mname"><span class="zh">版本演进</span><span class="en">Version evolution</span></span><span class="mtag">Version</span><div class="mdesc"><span class="zh">反馈修正触发主版本升级；权重变化 >5% 触发次版本迭代；1 小时震荡保护防频繁跳动。</span><span class="en">Feedback corrections trigger major version upgrades; weight changes >5% trigger minor iterations; 1-hour oscillation protection prevents frequent flips.</span></div></li>
+    </ol>
+
+    <h3 class="sub-h"><span class="zh">隐私方案：公私分离</span><span class="en">Privacy: public-private separation</span></h3>
+    <p class="zh">敏感决策数据（原始土地利用矢量、完整指标字段）<em class="hl">永久留在本地 SQLite</em>。通过 EvoMap 协议发布的只有脱敏后的评估方法论（Gene/Capsule）——<em class="hl">数据不出域，经验可共享</em>。这一设计让县域政府可以放心使用本地敏感数据，同时接入全国产业评估的知识网络。</p>
+    <p class="en">Sensitive decision data (raw land-use vectors, full indicator fields) <em class="hl">stay permanently in local SQLite</em>. Only de-identified assessment methodology (Gene/Capsule) is shared via the EvoMap protocol — <em class="hl">data stays local, experience travels</em>. This design lets county governments safely use sensitive local data while tapping into a nationwide network of industrial assessment knowledge.</p>
+  </section>
+
+  <!-- ============ 05: FEATURE TABLE ============ -->
+  <section id="s5">
+    <div class="shead"><span class="idx">05</span><h2><span class="zh">功能迭代历程</span><span class="en">Feature evolution</span></h2><span class="rule"></span></div>
+
+    <div class="tablewrap">
+      <table class="rt">
+        <thead><tr><th><span class="zh">功能</span><span class="en">Feature</span></th><th style="text-align:center"><span class="zh">版本</span><span class="en">Version</span></th><th><span class="zh">说明</span><span class="en">Description</span></th></tr></thead>
+        <tbody>
+          <tr><td>🗺️ <span class="zh">卫星底图</span><span class="en">Satellite basemap</span></td><td style="text-align:center">v1.0</td><td><span class="zh">天地图 WMTS 卫星影像，县域范围约束</span><span class="en">Tianditu WMTS satellite imagery with county boundary constraint</span></td></tr>
+          <tr><td>📐 <span class="zh">框选查询</span><span class="en">Lasso query</span></td><td style="text-align:center">v1.0</td><td><span class="zh">Leaflet.Draw 框选 → 空间查询 → 实时网格数与面积</span><span class="en">Lasso draw → spatial query → real-time grid count & area</span></td></tr>
+          <tr><td>🧠 <span class="zh">AI 评估</span><span class="en">AI evaluation</span></td><td style="text-align:center">v1.0</td><td><span class="zh">框选 + 对话 → 七维模型评分 + 产业推荐 + 政策依据</span><span class="en">Lasso + chat → 7-dimension scoring + industry recommendation + policy basis</span></td></tr>
+          <tr><td>🏭 <span class="zh">企业匹配</span><span class="en">Enterprise matching</span></td><td style="text-align:center">v1.0</td><td><span class="zh">多选企业 → 全域最优用地匹配</span><span class="en">Multi-select enterprises → county-wide optimal parcel matching</span></td></tr>
+          <tr><td>📊 <span class="zh">自进化面板</span><span class="en">Evolution panel</span></td><td style="text-align:center">v2.1</td><td><span class="zh">能力雷达图 + 进化曲线 + 经验胶囊列表</span><span class="en">Capability radar + evolution curve + capsule list</span></td></tr>
+          <tr><td>🎨 <span class="zh">智慧蓝 UI</span><span class="en">Smart Blue UI</span></td><td style="text-align:center">v2.2</td><td><span class="zh">15 CSS 变量双主题色彩系统，WCAG AA</span><span class="en">15 CSS variable dual-theme color system, WCAG AA compliant</span></td></tr>
+          <tr><td>💬 <span class="zh">AI 回复卡片</span><span class="en">AI response cards</span></td><td style="text-align:center">v2.3</td><td><span class="zh">结构化卡片渲染 + 一键最大化模式</span><span class="en">Structured card rendering + one-click maximize mode</span></td></tr>
+          <tr><td>🗺️ <span class="zh">对话地图联动</span><span class="en">Chat-map linking</span></td><td style="text-align:center">v2.3</td><td><span class="zh">框选/视图网格推荐 → 地图高亮持久化</span><span class="en">Lasso/viewport grid recommendations → persistent map highlights</span></td></tr>
+          <tr><td>🎯 <span class="zh">企业择地匹配 v2</span><span class="en">Enterprise matching v2</span></td><td style="text-align:center">v2.4</td><td><span class="zh">独立引擎：企业画像 × 视口网格 → 多维匹配 → 分组着色</span><span class="en">Independent engine: enterprise profile × viewport grids → multi-dim matching → group coloring</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footrow">
+    <span>© 2026 <span class="zh">江和洲 · Hezhou Jiang</span><span class="en">Hezhou Jiang</span></span>
+    <span><a class="back" href="./index.html#proj">← <span class="zh">返回代表性项目</span><span class="en">Back to selected work</span></a></span>
+  </div>
+</footer>
+
+<div class="lb" id="lb"><img src="" alt=""></div>
+
+<script>
+  var root=document.documentElement;
+  document.getElementById('lang').addEventListener('click',function(){
+    var next=root.getAttribute('data-lang')==='zh'?'en':'zh';
+    root.setAttribute('data-lang',next);root.setAttribute('lang',next);
+  });
+  var lb=document.getElementById('lb'),lbimg=lb.querySelector('img');
+  document.querySelectorAll('figure.fig img').forEach(function(im){
+    im.addEventListener('click',function(){lbimg.src=im.src;lb.classList.add('on');});
+  });
+  lb.addEventListener('click',function(){lb.classList.remove('on');lbimg.src='';});
+</script>
+</body>
+</html>
