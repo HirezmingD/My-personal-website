@@ -1,361 +1,523 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh" data-lang="zh">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>江和洲 Hezhou Jiang</title>
-<meta name="description" content="浙江大学城乡规划博士研究生，研究方向为数据与机器学习驱动的空间分析与建模。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+<title>江和洲 Hezhou Jiang · 城乡规划博士 / 独立开发者</title>
+<meta name="description" content="江和洲 Hezhou Jiang —— 浙江大学城乡规划博士研究生、独立开发者。把城市化成可测量的网格，把研究做成能发布的产品。研究空间数据分析、因果推断，开发 Agent 产品与 Multi-Agent 系统。">
 <style>
 :root{
-  --paper:#F6F7F9;--ink:#12161D;--muted:#59626F;--line:#E3E6EB;
-  --accent:#13497E;--accent-2:#2D6BB8;--card:#FFFFFF;
-  --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
-  --font-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono","Roboto Mono",monospace;
-  --max:1080px;
+  --ink:#0E1013; --bg:#F4F4EF; --bg-2:#EBEBE3; --paper:#FCFCF9;
+  --line:#DEDDD3; --line-2:#CBCABE; --muted:#6A6D66;
+  --accent:#3B43FF; --accent-ink:#2A31E0; --accent-lt:#6E74FF;
+  --dk:#0E1013; --dk-2:#15181D; --dk-line:#282C33; --dk-muted:#9BA0A6; --dk-fg:#F4F4EF;
+  --sans:"Space Grotesk","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  --serif:"Source Serif 4","Noto Serif SC",Georgia,"Songti SC",serif;
+  --mono:"Space Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --wrap:1080px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-a{color:var(--accent);text-decoration:none}
-a:hover{color:var(--accent-2)}
-html[data-lang="zh"] .en{display:none}
-html[data-lang="en"] .zh{display:none}
-.eyebrow{font-family:var(--font-mono);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
-.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
-section{padding:76px 0;border-top:1px solid var(--line)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.7;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--accent-ink);text-decoration:none}
+a:hover{color:var(--accent)}
+img{max-width:100%;display:block}
+::selection{background:var(--accent);color:#fff}
+a:focus-visible,button:focus-visible,.top:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.hero a:focus-visible,.hero button:focus-visible{outline-color:var(--accent-lt)}
+h1,h2,h3{font-weight:600;letter-spacing:-.01em;margin:0}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
+.mono{font-family:var(--mono)}
+.zh{display:none}html[data-lang="zh"] .zh{display:inline}html[data-lang="zh"] li.zh{display:list-item}
+.en{display:none}html[data-lang="en"] .en{display:inline}html[data-lang="en"] li.en{display:list-item}
+html[data-lang="zh"] .about-list li.en,html[data-lang="en"] .about-list li.zh{display:none}
+
+/* ============ HERO (dark console) ============ */
+.hero{position:relative;background:var(--dk);color:var(--dk-fg);overflow:hidden}
+#field{position:absolute;inset:0;width:100%;height:100%;opacity:.5;pointer-events:none}
+.hero .veil{position:absolute;inset:0;background:radial-gradient(130% 100% at 78% 0%,rgba(59,67,255,.10),transparent 55%),linear-gradient(180deg,rgba(14,16,19,.2),rgba(14,16,19,.86) 78%,var(--dk));pointer-events:none}
+.hero .wrap{position:relative;z-index:2}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 0;border-bottom:1px solid var(--dk-line)}
+.brand{font-weight:700;font-size:15px;letter-spacing:.01em;display:flex;align-items:center;gap:9px}
+.brand .plus{color:var(--accent-lt);font-family:var(--mono)}
+.nav{display:flex;gap:26px}
+.nav a{color:var(--dk-muted);font-size:13.5px;font-family:var(--mono);letter-spacing:.02em;transition:color .18s}
+.nav a:hover{color:var(--dk-fg)}
+.langbtn{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--dk-fg);background:transparent;border:1px solid var(--dk-line);border-radius:2px;padding:7px 12px;cursor:pointer;transition:border-color .18s,color .18s}
+.langbtn:hover{border-color:var(--accent-lt);color:var(--accent-lt)}
+
+.herobody{display:grid;grid-template-columns:1fr 300px;gap:56px;align-items:end;padding:76px 0 20px}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-lt);margin-bottom:22px}
+.name{font-size:clamp(46px,8vw,92px);line-height:.98;font-weight:700;letter-spacing:-.03em}
+.name .sub-n{display:block;font-size:clamp(17px,2.4vw,23px);font-weight:400;letter-spacing:.01em;color:var(--dk-muted);margin-top:14px;font-family:var(--mono)}
+.thesis{position:relative;font-family:var(--serif);font-size:clamp(21px,3vw,30px);line-height:1.34;font-weight:400;max-width:19em;margin:32px 0 0}
+.thesis .mark{position:relative;white-space:nowrap}
+.thesis .mark::after{content:"";position:absolute;left:-2px;right:-2px;bottom:2px;height:9px;background:var(--accent);z-index:-1;transform:scaleX(0);transform-origin:left;border-radius:1px}
+body.loaded .thesis .mark::after{transform:scaleX(1);transition:transform .9s cubic-bezier(.2,.7,.2,1) .5s}
+.role{color:var(--dk-muted);font-size:15.5px;line-height:1.7;max-width:34em;margin:26px 0 0}
+.actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:30px}
+.btn{font-family:var(--mono);font-size:13.5px;letter-spacing:.02em;padding:11px 17px;border-radius:2px;border:1px solid transparent;transition:transform .16s,background .18s,border-color .18s}
+.btn.solid{background:var(--accent);color:#fff}
+.btn.solid:hover{background:var(--accent-lt);color:#fff;transform:translateY(-1px)}
+.btn.ghost{border-color:var(--dk-line);color:var(--dk-fg)}
+.btn.ghost:hover{border-color:var(--accent-lt);color:var(--accent-lt);transform:translateY(-1px)}
+
+.portrait{align-self:end}
+.portrait .frame{position:relative;border:1px solid var(--dk-line);padding:9px;background:rgba(255,255,255,.02)}
+.portrait img{opacity:.98}
+.portrait .tag{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--dk-muted);margin-top:9px}
+
+/* instrument strip */
+.strip{position:relative;z-index:2;border-top:1px solid var(--dk-line);margin-top:44px}
+.strip .wrap{display:flex;flex-wrap:wrap;gap:0}
+.stat{flex:1 1 auto;min-width:132px;padding:22px 0;border-right:1px solid var(--dk-line)}
+.stat:last-child{border-right:0}
+.stat .n{font-family:var(--mono);font-size:clamp(22px,3.4vw,32px);font-weight:700;color:var(--dk-fg);letter-spacing:-.02em}
+.stat .n em{color:var(--accent-lt);font-style:normal}
+.stat .l{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dk-muted);margin-top:5px}
+
+/* ============ SECTIONS (light) ============ */
+section{padding:78px 0;border-top:1px solid var(--line)}
 section:first-of-type{border-top:0}
-header{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.86);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
-.bar{max-width:var(--max);margin:0 auto;padding:12px 28px;display:flex;align-items:center;gap:20px}
-.brand{font-family:var(--font-mono);font-size:.82rem;letter-spacing:.06em;color:var(--ink);white-space:nowrap}
-.brand b{color:var(--accent)}
-.nav{display:flex;gap:22px;margin-left:auto;flex-wrap:wrap}
-.nav a{font-size:.9rem;color:var(--muted)}
-.nav a:hover{color:var(--ink)}
-.langbtn{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:6px 12px;border-radius:2px;cursor:pointer}
-.langbtn:hover{border-color:var(--accent);color:var(--accent)}
-.hero{padding:80px 0 66px}
-.herowrap{display:flex;gap:44px;align-items:flex-start}
-.herotext{flex:1;min-width:0}
-.photo{width:188px;flex-shrink:0}
-.photo img{width:188px;height:188px;object-fit:cover;border-radius:4px;border:1px solid var(--line);display:block}
-.eyebrow.top{margin-bottom:22px}
-.name{font-size:clamp(2.5rem,6vw,4.1rem);line-height:1.03;font-weight:800;letter-spacing:-.02em;margin:0}
-.name small{display:block;font-size:clamp(1rem,2vw,1.2rem);font-weight:500;letter-spacing:.02em;color:var(--muted);margin-top:10px;font-family:var(--font-mono);text-transform:none}
-.lede{font-size:clamp(1.25rem,2.6vw,1.8rem);line-height:1.35;font-weight:600;letter-spacing:-.01em;max-width:26ch;margin:28px 0 16px}
-.hero p.sub{color:var(--muted);max-width:58ch;margin:0 0 32px;font-size:1.02rem}
-.schema{border:1px solid var(--line);background:var(--card);border-radius:3px;font-family:var(--font-mono);font-size:.82rem;margin:0 0 32px;max-width:640px}
-.schema .row{display:flex;gap:16px;padding:11px 16px;border-top:1px solid var(--line)}
-.schema .row:first-child{border-top:0}
-.schema .k{color:var(--muted);min-width:96px;letter-spacing:.04em;flex-shrink:0}
-.schema .v{color:var(--ink)}
-.actions{display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:.82rem;letter-spacing:.04em;padding:11px 18px;border-radius:2px;border:1px solid var(--ink);background:var(--ink);color:var(--paper)}
-.btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
-.btn.ghost:hover{background:transparent;border-color:var(--accent);color:var(--accent)}
-.shead{display:flex;align-items:baseline;gap:16px;margin-bottom:34px}
-.shead .idx{font-family:var(--font-mono);font-size:.82rem;color:var(--accent);letter-spacing:.08em}
-.shead h2{font-size:clamp(1.5rem,3vw,1.9rem);font-weight:750;letter-spacing:-.01em;margin:0}
-.shead .rule{flex:1;height:1px;background:var(--line);align-self:center}
-.why{max-width:68ch;font-size:1.08rem;line-height:1.8}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.cap{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:24px}
-.cap .num{font-family:var(--font-mono);font-size:.8rem;color:var(--accent);letter-spacing:.06em;display:block;margin-bottom:12px}
-.cap p{margin:0 0 14px;color:var(--ink);font-size:.98rem}
-.chips{display:flex;flex-wrap:wrap;gap:7px}
-.chip{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.03em;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:4px 8px}
-.proj{border-top:1px solid var(--line);padding:24px 0}
-.proj:first-child{border-top:0}
-.proj .ptop{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:8px}
-.proj h3{font-size:1.14rem;margin:0;font-weight:700}
-.badge{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;color:#fff;background:var(--accent);border-radius:2px;padding:3px 8px;text-transform:uppercase}
-.badge.soft{color:var(--accent);background:transparent;border:1px solid var(--accent)}
-.proj p{margin:0 0 8px;color:var(--muted);max-width:76ch}
-.meta{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.03em;color:var(--muted)}
-.meta span{color:var(--accent)}
-/* clickable project cards (link to a detail page) */
-a.proj{display:block;color:inherit;text-decoration:none}
-a.proj:hover h3{color:var(--accent)}
-a.proj:hover .arrow{transform:translateX(4px)}
-.proj .arrow{color:var(--accent);font-family:var(--font-mono);transition:transform .2s ease;display:inline-block}
-.proj-more{margin-top:12px;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.05em;color:var(--accent);display:inline-flex;align-items:center;gap:7px}
-.proj-more .arrow{font-size:.9rem}
-.pubs{list-style:none;margin:0;padding:0}
-.pubs li{border-top:1px solid var(--line);padding:16px 0;display:flex;gap:16px;align-items:baseline}
-.pubs li:first-child{border-top:0}
-.pubs .yr{font-family:var(--font-mono);font-size:.78rem;color:var(--muted);min-width:44px;flex-shrink:0}
-.pubs .body{flex:1}
-.pubs .ttl{color:var(--ink);font-weight:600;transition:color .15s ease}
-.pubs .ttl:hover{color:var(--accent)}
-.pubs .venue{color:var(--muted);font-size:.92rem}
-.pubs .venue em{font-style:normal;color:var(--accent)}
-.pubs .fa{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.05em;color:var(--accent);border:1px solid var(--accent);border-radius:2px;padding:2px 6px;text-transform:uppercase;margin-left:8px;white-space:nowrap}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.tl{list-style:none;margin:0;padding:0;font-size:.96rem}
-.tl li{display:flex;gap:16px;padding:9px 0;border-top:1px solid var(--line)}
+.shead{display:flex;align-items:baseline;gap:16px;margin-bottom:38px}
+.shead .idx{font-family:var(--mono);font-size:13px;color:var(--accent-ink);letter-spacing:.05em;flex-shrink:0}
+.shead h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.02em}
+.shead .line{flex:1;height:1px;background:var(--line);align-self:center}
+
+/* profile */
+.about-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:52px}
+.lead{font-family:var(--serif);font-size:clamp(20px,2.6vw,26px);line-height:1.45;font-weight:400;letter-spacing:-.01em}
+.tblock{margin-top:26px;border-top:1px solid var(--line)}
+.tblock .row{display:grid;grid-template-columns:96px 1fr;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)}
+.tblock .k{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.tblock .v{font-size:15px;line-height:1.6}
+.about-list{list-style:none;margin:4px 0 0;padding:0}
+.about-list li{position:relative;padding:13px 0 13px 26px;border-top:1px solid var(--line);font-size:15.5px;line-height:1.62}
+.about-list li:first-child{border-top:0}
+.about-list li::before{content:"→";position:absolute;left:0;top:13px;color:var(--accent);font-family:var(--mono);font-size:13px}
+.about-list b{font-weight:600;color:var(--ink)}
+
+/* metric band */
+.band{background:var(--ink);color:var(--dk-fg);border:0}
+.band .grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.band .cell{padding:8px 24px 8px 0}
+.band .cell + .cell{border-left:1px solid var(--dk-line);padding-left:24px}
+.band .big{font-family:var(--mono);font-size:clamp(30px,5vw,50px);font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--accent-lt)}
+.band .cap{font-size:14px;line-height:1.5;color:var(--dk-muted);margin-top:12px}
+.band .cap b{color:var(--dk-fg);font-weight:600}
+
+/* journey timeline */
+.tl{list-style:none;margin:0;padding:0}
+.tl li{display:grid;grid-template-columns:150px 1fr;gap:28px;padding:26px 0;border-top:1px solid var(--line);position:relative}
 .tl li:first-child{border-top:0}
-.tl .t{font-family:var(--font-mono);font-size:.76rem;color:var(--accent);min-width:96px;flex-shrink:0;letter-spacing:.02em}
-.bignum{font-size:clamp(2.2rem,5vw,3rem);font-weight:800;letter-spacing:-.02em;line-height:1;margin:0 0 6px}
-.bignum .u{font-size:1rem;font-weight:600;color:var(--muted);font-family:var(--font-mono);margin-left:6px}
-.abil{list-style:none;margin:16px 0 0;padding:0}
-.abil li{padding:9px 0;border-top:1px solid var(--line);color:var(--ink);font-size:.98rem;display:flex;gap:10px}
-.abil li:before{content:"—";color:var(--accent);font-family:var(--font-mono)}
-.awards{font-family:var(--font-mono);font-size:.82rem;color:var(--muted);margin-top:22px;line-height:1.8}
-.awards b{color:var(--ink);font-weight:600}
-.morelink{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
-.minibtn{display:inline-block;margin-top:8px;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.04em;color:var(--accent);border:1px solid var(--line);border-radius:2px;padding:4px 10px}
-.minibtn:hover{border-color:var(--accent);background:var(--card)}
-#contact .schema{max-width:560px;margin-top:8px}
-footer{padding:34px 0 48px;border-top:1px solid var(--line);color:var(--muted);font-family:var(--font-mono);font-size:.76rem;letter-spacing:.03em}
-.footrow{max-width:var(--max);margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
-.reveal.in{opacity:1;transform:none}
-@media (max-width:720px){
-  .grid,.two{grid-template-columns:1fr}
-  .nav{display:none}
-  section{padding:58px 0}
-  .hero{padding:52px 0 44px}
-  .herowrap{flex-direction:column-reverse;align-items:flex-start;gap:22px}
-  .photo,.photo img{width:112px}
-  .photo img{height:112px}
+.tl .when{font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.02em}
+.tl .when .tag{display:block;margin-top:7px;color:var(--accent-ink);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.tl .role{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.tl h3{font-size:19px;font-weight:600;letter-spacing:-.01em}
+.tl .desc{color:var(--muted);font-size:15px;line-height:1.6;margin-top:7px;max-width:40em}
+.tl .chips{margin-top:12px;display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--muted);border:1px solid var(--line-2);border-radius:2px;padding:4px 9px}
+.tl .minibtn{display:inline-block;margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--accent-ink)}
+.tl .minibtn:hover{color:var(--accent)}
+
+/* selected work — expandable cards */
+.plate{border-top:1px solid var(--line)}
+.plate:last-child{border-bottom:1px solid var(--line)}
+.plate .top{display:grid;grid-template-columns:70px 1fr auto;gap:22px;align-items:start;padding:26px 0;width:100%;background:transparent;border:0;text-align:left;cursor:pointer;font:inherit;color:inherit}
+.plate .pid{font-family:var(--mono);font-size:12px;color:var(--accent-ink);letter-spacing:.03em;padding-top:4px}
+.plate h3{font-size:21px;font-weight:600;letter-spacing:-.015em;transition:color .18s}
+.plate .top:hover{background:rgba(59,67,255,.03)}
+.plate .top:hover h3{color:var(--accent-ink)}
+.plate .oneline{color:var(--muted);font-size:15px;line-height:1.55;margin-top:7px;max-width:44em}
+.plate .kindwrap{display:flex;flex-direction:column;align-items:flex-end;gap:8px;padding-top:3px}
+.kind{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line-2);border-radius:2px;padding:4px 8px;white-space:nowrap}
+.kind.author{color:#fff;background:var(--accent);border-color:var(--accent)}
+.plate .exp{font-family:var(--mono);font-size:18px;color:var(--muted);line-height:1;transition:transform .28s,color .18s}
+.plate.open .exp{transform:rotate(45deg);color:var(--accent)}
+.plate .body{max-height:0;overflow:hidden;transition:max-height .38s ease}
+.plate .inner{padding:0 0 30px 92px}
+.plate .detail{color:var(--ink);font-size:15px;line-height:1.68;max-width:46em}
+.plate .metrics{display:flex;flex-wrap:wrap;gap:22px;margin:18px 0}
+.plate .metric .mv{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--accent-ink);letter-spacing:-.02em}
+.plate .metric .ml{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.plate .rowtags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+.plate .venue{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.plate .read{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:13px;color:#fff;background:var(--ink);padding:9px 15px;border-radius:2px;transition:background .18s,transform .16s,box-shadow .18s}
+.plate .read:hover{background:var(--accent-ink);color:#fff;transform:translateY(-1px);box-shadow:0 4px 12px rgba(59,67,255,.2)}
+
+/* publications */
+.pubs{list-style:none;margin:0;padding:0}
+.pubs li{display:grid;grid-template-columns:62px 1fr;gap:22px;padding:20px 0;border-top:1px solid var(--line)}
+.pubs li:first-child{border-top:0}
+.pubs .yr{font-family:var(--mono);font-size:14px;color:var(--muted);padding-top:2px}
+.pubs .ttl{font-size:16.5px;line-height:1.5;font-weight:500;color:var(--ink)}
+a.ttl:hover{color:var(--accent-ink);transform:translateX(4px);display:inline-block;transition:color .18s,transform .18s}
+.pubs .fa{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--accent);border-radius:2px;padding:2px 7px;margin-left:9px;vertical-align:2px}
+.pubs .venue{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:7px}
+.pubs .venue em{font-style:italic;color:var(--ink)}
+
+/* capabilities */
+.caps{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.cap{background:var(--paper);padding:28px}
+.cap .cn{font-family:var(--mono);font-size:12px;color:var(--accent-ink);letter-spacing:.06em}
+.cap h3{font-size:17.5px;font-weight:600;margin:8px 0 10px}
+.cap p{color:var(--muted);font-size:14.5px;line-height:1.62;margin:0 0 15px}
+.cap .chips{display:flex;flex-wrap:wrap;gap:7px}
+
+/* contact */
+.contact .cblock{border-top:1px solid var(--line)}
+.contact .row{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid var(--line)}
+.contact .k{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.contact .v{font-size:16px}
+.contact .v a{font-family:var(--mono);font-size:15px}
+
+footer{border-top:1px solid var(--line);padding:34px 0}
+.footrow{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted);letter-spacing:.02em}
+.footrow .plus{color:var(--accent-ink)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(14px)}
+.reveal.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+
+/* responsive */
+@media(max-width:880px){
+  .herobody{grid-template-columns:1fr;gap:36px;padding:56px 0 16px}
+  .portrait{max-width:240px}
+  .about-grid{grid-template-columns:1fr;gap:34px}
+  .band .grid{grid-template-columns:repeat(2,1fr);gap:1px 0}
+  .band .cell + .cell{border-left:0}
+  .band .cell{border-top:1px solid var(--dk-line);padding:20px 0 8px}
+  .band .cell:nth-child(-n+2){border-top:0}
+  .caps{grid-template-columns:1fr}
 }
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .reveal{opacity:1;transform:none;transition:none}
+@media(max-width:640px){
+  .wrap{padding:0 20px}
+  .nav{display:none}
+  .tl li{grid-template-columns:1fr;gap:8px}
+  .plate .top{grid-template-columns:44px 1fr;gap:14px}
+  .plate .kindwrap{grid-column:1/-1;flex-direction:row;align-items:center;padding-top:0}
+  .plate .exp{display:none}
+  .plate .inner{padding-left:0}
+  .pubs li{grid-template-columns:1fr;gap:5px}
+  .contact .row{grid-template-columns:1fr;gap:4px}
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none}
+  body.loaded .thesis .mark::after{transition:none}
+  #field{display:none}
 }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="bar">
-    <span class="brand">江和洲<b>·</b>Hezhou Jiang</span>
-    <nav class="nav">
-      <a href="#about"><span class="zh">背景</span><span class="en">Background</span></a>
-      <a href="#cap"><span class="zh">能力</span><span class="en">Skills</span></a>
-      <a href="#proj"><span class="zh">项目</span><span class="en">Work</span></a>
-      <a href="#pubs"><span class="zh">论文</span><span class="en">Papers</span></a>
-      <a href="#practice"><span class="zh">履历</span><span class="en">Experience</span></a>
-      <a href="#contact"><span class="zh">联系</span><span class="en">Contact</span></a>
-    </nav>
-    <button class="langbtn" id="lang" aria-label="switch language"><span class="zh">EN</span><span class="en">中文</span></button>
-  </div>
-</header>
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="veil" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="topbar">
+      <span class="brand"><span class="plus">+</span> 江和洲 · Hezhou&nbsp;Jiang</span>
+      <nav class="nav">
+        <a href="#about"><span class="zh">背景</span><span class="en">Profile</span></a>
+        <a href="#journey"><span class="zh">履历</span><span class="en">Journey</span></a>
+        <a href="#proj"><span class="zh">项目</span><span class="en">Work</span></a>
+        <a href="#pubs"><span class="zh">论文</span><span class="en">Papers</span></a>
+        <a href="#cap"><span class="zh">能力</span><span class="en">Skills</span></a>
+        <a href="#contact"><span class="zh">联系</span><span class="en">Contact</span></a>
+      </nav>
+      <button class="langbtn" id="lang" aria-label="switch language"><span class="zh">EN</span><span class="en">中文</span></button>
+    </div>
 
-<main class="wrap">
-  <section class="hero" style="border-top:0">
-    <div class="herowrap">
-      <div class="herotext">
-        <div class="eyebrow top"><span class="zh">Agent 产品 · Multi-Agent 系统 · 空间数据分析</span><span class="en">Agent Products · Multi-Agent Systems · Spatial Data Analysis</span></div>
+    <div class="herobody">
+      <div>
+        <div class="eyebrow"><span class="zh">城乡规划 · 空间数据 · Agent 系统</span><span class="en">Urban planning · Spatial data · Agent systems</span></div>
         <h1 class="name">
           <span class="zh">江和洲</span><span class="en">Hezhou Jiang</span>
-          <small><span class="zh">Hezhou Jiang</span><span class="en">江和洲</span></small>
+          <span class="sub-n"><span class="zh">Hezhou Jiang · 浙江大学城乡规划博士</span><span class="en">江和洲 · PhD candidate, Zhejiang University</span></span>
         </h1>
-        <p class="lede">
-          <span class="zh">独立开发者、研究者<br>浙江大学城乡规划博士研究生</span>
-          <span class="en">Independent developer, researcher<br>Doctoral student in Urban Planning at Zhejiang University</span>
+        <p class="thesis">
+          <span class="zh">把城市化成<span class="mark">可测量的网格</span>，把研究做成<span class="mark">能发布的产品</span>。</span>
+          <span class="en">Turning the city into <span class="mark">measured cells</span> — and research into <span class="mark">products that ship</span>.</span>
         </p>
-        <p class="sub">
-          <span class="zh">城市公共管理、空间数据分析与因果推断研究<br>专业领域 Agent 产品开发 & Multi-Agent 系统开发</span>
-          <span class="en">Research on Urban Public Management, Spatial Data Analysis and Causal Inference<br>Agent Product Development & Multi-Agent System Development</span>
+        <p class="role">
+          <span class="zh">浙江大学城乡规划博士研究生，独立开发者。研究空间数据分析、因果推断与城市公共管理，同时开发 Agent 产品与 Multi-Agent 系统 —— 四年甲级设计院实践，八篇论文，一堆会跑起来的代码。</span>
+          <span class="en">Doctoral student in Urban Planning at Zhejiang University and an independent developer. I research spatial data, causal inference and urban public management, and build Agent products and multi-agent systems — four years at Grade-A institutes, eight papers, and a pile of code that actually runs.</span>
         </p>
         <div class="actions">
-          <a class="btn" href="https://github.com/HirezmingD" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="btn solid" href="https://github.com/HirezmingD" target="_blank" rel="noopener">GitHub ↗</a>
           <a class="btn ghost" href="mailto:jhezhou@163.com"><span class="zh">邮件</span><span class="en">Email</span></a>
-          <a class="btn ghost" href="./26.7.2-CV.pdf" target="_blank" rel="noopener"><span class="zh">简历</span><span class="en">CV</span></a>
+          <a class="btn ghost" href="./26.7.2-CV.pdf" target="_blank" rel="noopener"><span class="zh">简历 CV</span><span class="en">CV ↗</span></a>
         </div>
       </div>
-      <div class="photo"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCAG4AbgDASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAAAgMAAQQFBgcI/8QAQxAAAgEDAwIDBgQEAgoBBAMAAQIAAwQRBSExBhJBUWEHEyJxgZEIFDKhI0KxwRVSFiQzQ2JygtHh8MIXkqKyGDTx/8QAGgEBAAMBAQEAAAAAAAAAAAAAAAECAwQFBv/EACgRAQEAAgIDAAEEAgIDAAAAAAABAhEDIQQSMUEFEyJRMmEUIzNxkf/aAAwDAQACEQMRAD8A7EDMPtxKWGN5murEvELEvECgIWJAMQvCBQEMCQcQhAgEYBBWMAhKgN4S8SASwN4EA23ELtz4SYxCgD2/OWBvC8RJ5wLEL+sijMICExWPKWoI8JYG/rCwYFjjiWFkHOIaiBAmZO3eMAk7N4AY8ZfbD7d5fbAACXiFgQgIAYlhfOFiEFyIA9okCw+0SYgAVlYjCNoJgDiTGTiEJTeGIAMIJU59YZErG/EBZEHtjQN5CsBREErGlZXbtmAkiARHEQGEBeMyQuIJEACJTRhGIDbQgvEHEZiCRAAiCVjcQSICjKMNlwYJEASdpJZ2kgYOJYOPGQD0MsDMIEOcwvKV27S8QD2l4EEGGIExLAzLAhAQlFhgGQCGBAoCEB4/vJiWBtmBYG0LEiiEBArGQNpYWWBCAhMUq7w/CUBvDCgwBC4MPG8sLDCwBC7iMCywsMCBQEL08YQWCSFJyYEAzL7IFS4pUh8TY8tuTKtr+1vE76FxTqDOD2sCQfEfOA3s24MsLiWCGGxGJPeU2UYYc/vAAKcwgJFqK65Ug/KEOIEAlFcwsZlgQAAxBIjCMyiu0BYl4zCAlgYgKK7QSI0rBKwAK4kxCAkIgLxIRtCxKYbQglhgwSI0jzgtASRIFhdsmMfOEgKwCu8aYJGIQV2wcRkEr4wAIxKPEIwCSYAkZgkRnygkQFESSzJAwufCEBjwkUY9JZz6whY3ELEFdjDXeBAuIYkhDeEqAjAIOIYGIFqMQwNoKjMYBkQBxtCAl4xCUQKAhAGXtCAzApeYYWQLCECBZaiWBCAhKgMRijMijJjANoFDHHEIrvzFVaiqD8QBHn4ThOqPaavTNcUatMXL47uyj8TgeBbBwAfWB39WtTooWqOqKPEnE43X+oqzh3srs2NKln+NVp5DHGcYxsONz5zzjVPbPc6gzU2RaA47AMEjyPrNFqntTFakfzD+8CDuCH9IbgArwfrBt2Nx7StRwaFW8sLkK2FFRCquTjPxDy53HE5jVetL3S9SN5bUH01+4M6o/wAJPGfWefV9TNZ+9z2Gr8favCjO2PLaKq9R947C3emfi94dmGMYz58ydK2vWU9s9/7o0bmr7pmGS42J+XlOco+1bUrG+c2lz76lWc9xc/ET5/bacBc6n+ZrIKFqrNVwT3gk5/oQBG3DXNVDQYUaYGcdrj54O+0aNvZdE9tFzpdVKurUhVtayg4on4wcHBwflv8AQzrdM9uGh6pVFKnQuAwx3Zx3DP8Aw8/bM+W7qo9BitxcZpodmVgxxjgDMbYVx3U7i3rulVDkN3YbPrINvtzSNastYoe8tawZkPa6HZkPkw8JsVGd58i9P+0K60m/o3Rrt3jFOsVck1F9d+RyJ9FdFde2HUNuyiuO9cE/9v2zCzsMeEEiEjrUHdyuMg+cs7nHMBfbJtDIlAQAIPjKxtGY8YJEACJWIeJUBeJMDEIiVCAMIojeOO8ArASRKMYVxAIgCR5wSIREEwkBEE8RhEAjaEFOIONowjMHEBe8ow2GIBgBjO8kuSBhLC+cEDIhcbwhPGGMYEpeYQ5zCRYMMCQDaWBAsDwhASgIYG8C1XG8YBiUPKFAvAkAlj1hYgCIxION8Q1EAsQu2RYSiBQBhhcbbSduZY5z/aASAS2cJueJRYL6ec8x9q/tjsOjqFTTtPdbnVmHb2q21DPix8D5CAXtE6iWuz2dGrUp0KSM1zWyAAB/KW/rjcfWeCXfUF017WrWNd7egTse9gMffM1WudU6lr7e9uqhFIDCUxkKo/v6k8zTiu9RsBueCZOjbcPqVMu9RgHc7lgNpi3F+tfJrKMY24EwiwTOXyfHG0Q7YBLMc+g2k6VrPr11qUQiOgYDgk5E19T3mfdishJP8u8umne2Sy49PGZK29Rtl8f2xLKsrT1q2a5NZX7h2t/ExjzAMx7ii9dXqqCMNjtI2Uf0lVrWsFPdVAA9f/cQUNajSAVyVIycjuUn6wF0tPW4JWjc9x8UIxmbClb3trT917sGm3LUyCcegMwqKlCr5wSM4G02aG4qKTTfvVRuFG5kJa//AAy4qN72hXFSm3jwRjzHhOw6J641HorUPzFZEq0iuO3PjjY/Pc7+s1COop9706i1AB3N3Z7h645ihRS6OVpVCv6fhIJ+0hMr2fp32y1H1FnqX1zXpMA1WgpVKFMk8A4yFAxv4md3oXtNfWrgJYWahN/9o5OcHkDwHqcfKfLduv5PuQO9OmSGKYwTjz85vdD6u1PS807PUihYHuUorL58Ec7cyLFtvsW0ujdp3MrU3/mQ+H/iZODwZ89dJe2S6oNTGoXFuVbJNRqWFDeR7eMz2fp3rPT9fcUUqIlxjPu+/JPykJb7EEriP7R5j7xZAO4gKIg4jSIBEICVgFY3EEiAorIRDYSjAUwgFY0iAw2gJKwSDG4g43gLKxbDEcYsiAvGRBxDxgyjAWd4BXJjMZglYCysktsiSBgASwJBCECwN4Y5lAQsQhYhKMmUOdoxRCVgQgJQl8QCB3hg7QFHhGAYGYE44hA+kgBPhCA9IFrvDEpRiGBAsCGBKAxDAgQDO0LHmJYHjOD9sXtEp9AdNM9EqdTvM0rRD/KfFyPIf1xA5v2ze2Sl0tbVtB0WoH1equKlVTkWynx9X8h4cz5le4q3dV69d2qMzFmdjksTyTBurqte3NS5uar1a1Vi7u5yWJ5JMQ1Qy0itrJuaw2CnO0xg5UbZzAznGfCWSRxJNmBe/HcTCLgLhcg+eYksxxIGYHiSjbLpMe0D+0yRUQIAVwfQkZmDTc5mWtVGHaR2jHgOYD6ZDb965/4uJmUqKFMAHOOVmNRCFcDuXyOBM1C6UtyzZ44kWpkAttTA937ts5HJ59I5FVGHYuCDgYO4i0p16rntVmC+e+IRs7t3yncq8kZlPZaY3+mRmlbt/EKorHOT/wBuIi5oMHLU8MpOchsft/5hC3quexy2eDvtJTSmlRKdYspXOSo+Ij0ltw9awalxWCEOSf8AhImN+ddUIRMDg9oA+k3iaPXrluTsdiN8TTXmm16VbsFMgg5AHhG4XGtvY3Va3tE/hU6lGtkFXGxAG4+mZ2nQXUVPS7v/AFkO9spz3MT32/yPl5eXynny3VesCcHNIsVz5FcCbKjqLU1XtUYJVKiDyI4PpmQh9n6BepqWm0bulXNWlVUMMnJH1mxIGZ457A+q1vbOtolS4/iW+DRRzuafp6iezkDEhJPbmCyjwjSDAIgLxIRtGYgkZ+UBBEorHFRAIgLwID4jCsBlgLI8IJGSIwiAYC2gERjRZgAw8YthGtAIgLxvBaMO0AjMBbDPjJLZTnaSBgqIQXxlCFmELhCUBmGBCVqNxC44kxiFAsDMJRLEg3gXjEYPvA8RGLvAILtCAIlgSxCUUeENRtIBDUbQhAuYwDBxIBtDA3gBVdKFF6tRgiICzMeAByZ8U+1Hrav1z1deam9VmtEY0bNDsEog7YHryfnPo/8AEB1VV6a9n1zRoOUuNSYWasOQp3f/APEEfWfIDHJkxFqFj9ZQ3kxKllVmTcnEIIWjqVuXcKozG9ElqqVPPrH06AdgAM58JsbbQLmsBuVz5Cb3T+jbyqB7vA+aZMwy58Z+XRhwZZfhzb2a0UAOCx4EybXSmqlQitkkDI4ne6b7NKty3ey+8cbd1UZx8hnAnYab7NxRpgMlOmeC/LY8htgfvOfPzJJ068PByv15fT0GhbU1FTLVW5Vd8TZ2PSta+KpRoOuf5m2E9b0z2f6dQKn3fBzvv/WdTbaFZ29JadOmMD9pz5ebfw6sfAl+vJrDomla23Zlalwx/SB/WbAdAtStQ1XJqP8AEQOB5f1nqCadbqSewZ+Uy/yNK42ZR8sczG+TlXRPFxj5/vum/wAjd5q027XUqDyARwQfln7S7Xptrh7a6IKmoVphQm/a+2fqePSev6p07SvLrC0gSvwr3DI7j/2G8TcdPJQq2VtRU97OqjzCIc5/p95rj5FZZeLN1y2iezn39BLlwwpKGU9o3I7tvlt/WajX/Z8yqUSmcuO1W8P/AHO32nudrbJRt1QqMAYxMHVdMp3K4xtj/wAyn/Is7P8AiyzVfIuo0a2mo1u6gMDyRsMHgf8AvjNbRrlnAQAK5zPZ/az0apFW5oUwucEAD6GeJVKTW1dqZ27dp6fj8s5MdvI8jhvFlp1Oh6zW6d1WhfW9dqb0WFSnVHIPrPsDorqmh1h0/bapQwC47XUfyuORPh8XXfSKHgDPzn0j+F/VfzOhahYM5L21RWAJ5Vhz9xNmEe2MuJRXaMO53lMPISElEQSsaZRGYCCMQCvrHMsAwFsIto1uIBEBTCLIjiIDDaAhgYJWOKwCICWGYJEYRBxAWy7RZBjj5QMekBZHrJLYSQNfzLEoGGIFiGvMDgw1O0AuTLEiwxzAJdxGBYCxqwKC5hqMSwN/SX6QLAxDUQQISwkaiMQbQVEYggEq7QsYGZajMMKIQ+cPxVawla60TSEbLUUqXNQA8d2FX+hnz6TvPW/xJLU/+oFaq/cFNJKdMEY+FRyPqT9p5JLxS3tZMiKWbAEgGRM/TbU16gUDkyL0nHu6Ha6fVrMFVSxPlOu0PpjtKvUQZ8plaRp1OiqkqCZ1NgBkbDaefzc9vUep4/jT/LI7TtEogKGQZx5TfWVrSpOKYUYirQZK4+U2NGkPe54P9Z5+WVr1McJG70+iqKpVcTdU6IdMY5moscAKMzdWx7Rk+cx26JDqe2xA2j0UE8HaJRQzkYGxmYi5Gdj4RKVFpKRxkmZVtQLHcY/rBQAY3mdbsg2GJfGbUzuoS1mgOe0H1mKunU6dz7/GXPn4Dy+83XwsvhMWtgH1l8pr4pjdsbjYjERXAbMe4LPgRNXAyJlcmkjleq7Bb3Ta6MAT2nGfAz5h6rsPyepOCmNzmfV+oU2em69vIM+fvaLpOb+oVXcbzt8HPWWnm/qPHvHbzykhYN2+RBnt34XrtqHU+p2RHw1bUEH1Vh/3M8XekaJORj4e4es9n/DVRD9VV6qthxbMe3zG3hPXeI+myNsDEhXaWo23kxmQkthAIjSIBEBZ9YDCNK5gssBLDMAiOIgkQEMIBEawgEQFMuYphiPIi2EBJEAiOKxbCAtt4J48IbDiCRv4wFmSQ8yQNeBtmWBvKXaEIFqIYEECGNoBAQwMQVhgQLEYsACENhCTQRjEL+YQV8oajeAQhAb5kA4hgQCQRqjMFBGKIBoIRGBmUBGA+BhD5b/FQqnqvTgoAxZ74HPxmeGnYT6E/FLodRb201tmJRgtsg8BjuY/2+8+fCOJeKX6NBOg0Cn/ABO7wE0CfqAnY9O2WaQcjmZc+WsW3j47ydHarlARNtZEgTW2o7B2jwm2swpK5OBPMzexx9Og0xvgGeZuKOGcbTQ2Xd3YA2zOh0+3bIJ4M5Mo7ca29svGFm0pd3aNsCYNpQYsBkYm7o2vwjI2mTffSIvOOY5CVGfGHTtznIHhCrIAg23EnSu9jpuCu458Zk0Gz6TAoqc7mZ9Gmdsb5lsb2jKMs1O1eYpj3DPjHe5Puw2JYp4ODsZey1lLGCzdp8sTHfdsneZ1Wl3njaYdVPdnaY5RrjZWJd0hUQqOTxPG/abpT21arXI+FsGe1Fe7AI2M5L2hdPDVtEqKgPegyMTXxuT1zjHyuL3wsfNV0ouGbcbAIJ6p+G2nVTrZnpgdqW1QVB6HGMfWeYXdF7V2RwQVYhsz238MWkF73U9YK5VEWgPmTkkfbH1E+gnx8zZq6fQeDnfGZWIZHkJWIAEbQSIwiCRAWYDAERrDHhFmAowTxGkQMZzAUy5gERxWAQICWEWVjzvAcQMdhvAYRrCLI3gKIgkRhgttAS3MkIiSBrAISjEHHjDHECxCEEHMICAawwCYIxjMMcQLXaGo8pQAhrCTFHhDAgLGiBYHnDWCOIxBANRtDEECMQbYgGo3hhflKUCMUQh5J+JTSRe+z97sdpa0qoVB5yTgkfQGfIZXefZn4hrOrdezupSpU6lQtc0u4J/Ku5yfsJ8bupWqykfpJEvFKZY0jWuFXGcmei6bbihQC48JxPTlH3upL44GZ6Ai9iqPScnkZd6d3iY9extLY+Uz6V3Rth/EYDHhNXUq9qnG0wqNCrXqDLE5Pz/9M5pjL9ddzs+O00/qC3L8gL88Tp7LqGx7FBfDHwnmNPTrkBn927sBtj/vNfd0NdouG9xVRc4+H4hJ/axqJzZ4vf8AT9So18PSqBvPG+J0ljXDgLsRzPmzSdd1vS3UEsEPJK7YnrfSXWH5mlTSvs58czm5OD17ju4fI9urHo6VFACnAi6yh8EH6TWU74VHUd4332mer9y4yfnMNunS1ULhjxnEzqLLTOSdpp7+8S2pZZuJpdQ1+8q0xTsCoJGC2M4/8y2M3VOTLU7d42q2Nsn8Z1APmcTT6l1HaEMaB7gv+UZ+3nPK9Q0TVtUJqV9Srd3AVW7R/wD5G6b7P9QFValPV7hQMHtViQfvtOyXHTz77b3HZ0+pvdEuanwc5Jx/WZ1DX6F5gEgeGZpLfQqtjQArfx88tUX+wmfT0y392rDKnI2UHeY54410cdynbejGFGdpjXiB6bodwdpVAlX7feFx4Z8I2uB2Gcdmq65dzt80e0nTU0/qO6RVVVYggD5T1z8Lt3np/VbRgO9LpainHIK4/sJ5Z7YH7ur7lc4CIh4ntH4bdJex6MqXbfpurhmU+YG39QZ9Bw3+E2+Y8ia5a9e7cbQSIfjiCRNGQDBhkQSJIAiLKxpgESAvAgEYjDBaABEAgRnEEiAplEWwjWi2gJYYiiN45hvAI5gJyMnwgERjiLOx4gLYbyQjzJA1QO2ZY55lLLA3gEojAIIG0YBtAJR4QwN5QhD1hOl49IaiVjaGggGojVWLXmOT1gWFxGhcSKBtDAg2ijEYo2lAQ1g2JR5xqAQABNZ1benTeltWvFyGpWtQqR4EjA/rIt1Nkm7pwfWvtZ6Z76+mvaXOoU6RINSkVC92CMrnn9p8l6vbU0u69ajUNVGqM2SMMMk7MPAzvDVL1gQc9zEH1E0mtaA7Vnq0dmfkDxE5uLyd3t6Hk+B6T+LV9ILV/PGoaFT3fbjv7TjPznXXurWGnDFzcpTcqD28tjw2nO9Nandq1Wz9xTApHJO+c5xG3OnXljTu760rUyXBNRKlIN8OckAmacmOOWXdc/DnnjjrGDbq2hcP7u0tbi4c7KqjBP03M2enXWtkd3+CImf0mrcBCPmP/Ef05p7WulU791DXepBrmtVCgHDMe1RjgbZIGOfQR73ItiSdgPATPL1l1I24/fLu1k2F71iaxFrb6GqjhatRmx8zOhtLn2gOMf4T0pdrx2e/Kn92E4m1rXeo3mPfPSoZ8OJrvf6mddW2FW+WktyEdaTgP2Z37c7Z7dxnaVnFcvxFrzTD813+r/6VUqJa/wDZ+4HPvNOuRVAHn27mYGh9U2X5lbfvq2V2px+Xu6Zpvn0zOg6Zv9bselaPUJq3V1ppuqiLTuFAqmiGwrjG2SBvjy8ROg6rtdI6n0GnXrW9C7t66d9Krj4lPoeQRMssZL65RrhncsfbG7/9sbSteqNXVQ3pzxO4029r1xgpztPnzSr3XdI6gOm2wo3yJSFWi11UKEJnGGYckHaep6JrvXBClNO6W88Nd1gf/wBcTDk4dX66+LyPbHeq7HU6FRkHePh8szhuofaD0/04zULi+pi4A/2NIe8qZ8sDj64ms9oHWXWmo1tP6Wt9PtdMutYqGml5bXRq/wAMfqxsCuM5J5xxMa36N07pdDa2lur1+3LXVRc1KnmxJ4+Qiccxm8r9TeXLO6wnz80lPaPfXoNXT+ntTuU8GqAUl+5my072i9bo2LXo+0Kgf7293+wInJdRUtQqabWr21aqvuXAZQfiVfE+nhA9nNpdanq2lWn5alcXDaj31qv5hnf8sEHcHT9ITkhs5ztOrj4MbN6cHN5OeN9dvTP9POuqjJTrdC27PjuKW9+vcR54Y5jW9omsWK9+q9Ca/bUxy9FBWH/4wNd059I1laWm3LXNvnLUKjluw/8AC/gZ0mk6hVr00p1A4fxLHeYcnrjdadXFjnljvdn/AMajTPbD0Xdfw6uptY1s4NO7otTIPrnidTQ1rTtUtTV0++tbtcZBpVQ39Jyvte6P0nqTpG6r1KFJNStaZq0LgLhyQP0E+IPG88X6E6RvOr9IuG0u1stLFB6dNr8NVNZn7SSqgHHxA5bO3GInDx54+29Mr5HLx5+lm286k6c1Tqnri/qpa1fyeAoYYDVCBwmed/Hieu9A2GsdL9P26XtUgUaBp0bdNggJydvFieSZzvS/53SPaHpujXZSranTnf3pUlqlRQBkk8cces9QvqTp2O6kF98eQPEnn5dYzHG9aa+Jw45ZXPOd2s/onVq+r6Z724BWorEYO+B5ToTOQ9mtQvptwcn4qrN9O4zsMbzr8PK5cWNrz/1Hjxw8jLHGahZBgkRpG8BhOpxFmAYwiARIAGC0YVgssBZ4EEjYmGRBMBLCAwzHMIowElfCAwjiIsiAkg4i2GTHkRbLASwkhNJA0qw15gjfeMHn4QCGRDXaCOIawDEMDAgLGAQkSwxiCo3jFXEA1EYu0BfDxjlEAkjkGYsCNQYEIEBGBZSjeNUbbwBUb/Ka7qzTzqfS2rWQBLVrWoqjzPbkfuJtgIaAZGRn+8izc0nG6u3xTaoVuGpHZkJMz6yVHcAqCuNzN/7QumD0x7Qby1RcW1bNegfNGOQPpuPpObv79FpVEGx4nk6uN0+jy5JyyZRqNJtlp6tqTjHb3gbfLM6WxtqbABlDAngjInPaIhBuXbP8Rgwz9p0Gn1MEfSdWd6edhjrcdGbanUoWKKigCxtzgDH+6U/95qtQ0VHZvhO86ChR7dO02tnObf3JPrTdlx9u2bChYLc4Mxzz1dtOPD2kcXpulrScIV7R6Cbl+n7G8rJVuLWjXYADLJvjy9Z0o0dKeCVmTStUXb3eD5zK8131XVjw467jDpVWdFoVUZqKjtVS5AUcYAGw28oi5FlomnVLO3pilbsxqikGJAJG+PLzm0rqlLdhvOY6xqJW06pTQM9Vx2hVO+Dtt6y2NuV7V5MZjOo5Gw1U6hrlvSNL3fvkd8I/cMByAc+OZ7d0/wBP0LizI4YpsR5zxTpuwRtZFwvFNRTXYYAX5eZyfqJ9B9LP326rsdt5HPZ7aifEmXpvJ5jrnVttpnUVlptW0NS706ncV1JKopynYB3HjnJ8MToNT0d9Roi5dQxekFZQ2QPHAPiM/eYXtV6Fo3Wr0OohkU1ptQusbfAwKsf/ALST/wBM6HoSyvaPTtvb6jSVbm3zSbHDAbAj0kWY3CWfUy5zlsvxxNHp6pRqFkpAq3IA/rOm0Dpy3s1b3dqKQqD4vdAJn54nQVtHHvS9PbO+Jm2NJqR7XAwJHvfjW4Y63prho6s6t7oIB4Ymwo2vuyoCDI4OJsfhYbLvmZlpaBviIzjwldVFy20OtaWl1pd0K5PYKTMcegz/AGmH0f0vpXTnTdpQ0+0p2yVqSV3VST3VGRcsczc9Wn3Wg3wQ4erSNFB5s5CL+7CNrW6W1FbdP00FFMfIAD+0pnbMdIxkuW3Eawf8P6v6evzRaovfWosF/wArL/4nol3WW4s3NPdlQsuT44nNHT01HUaLOP8A+qHqKfI4x/ebPR6/varqRlUU8/KRb8jXDCSXL+m36Fsvy2ioxXBY/wDn+86LETplAW1hQpgYwgJ+Z3mSRPa4MPTjmL53yuX93lyz/ulmCYRG8EjebMAsIsjeMMowFkQWhGAZAFotowwGgLgN94ZzBIgLIimjTyeYDCAkwGMaVi2EBLDeSW3MkDTAbQk328ICERo2OYBekNRAAzGKYBrGLFhcxy7QkSiMAlAQlEGxqI1RAUYIjRxBsajeOUYEUvnGoNt4QYojBFrmNUYEAgIYggQ1kjyf2/aIr6Rp+vU0zUs6poVWx/I/H7j95846hTdbsuQSjH6T7X6h0S36k0S80m6H8K6pGmSP5T4MPUHB+k+SdV0e/wBA1q40e9XIt6hpPkbqR4j0PP1nD5GGsvZ6nhcm8PW/hh2hovSp+5I2XtYeREybVuyrjyM11ta/k76o6vmk+3b5GbEDFXuG20zvcX+Zuz0dn1KzbTaXxXHf+YtkHNQ9oFSmPUhVcDx7WHM3GluaX+0BU+s4e1uPdOrhiGUggqcEEb5BHBnTf6VXd9UDXiW93UOM1qgKVWx/mdP1H1Kk+szurNVvjvG9Tp11OorqPhzCcA+GJpLXWkUYNqxP/DcjH7pHVNZqMeylZ5J/zXA/shmPpN/XR73+qPVO1UJz4czz7qC9Wk5VKhaowxsf0g+Pz8vv4Tq9QrX70296tGgnPwgsx+p2H2nCHS615qFSqpJoqTknfuP95thZO2HJMsutNn05S7GBA/Wd57b0kPd2ik+WZ5J09YkVkB23nsOhKQlKkp+LGB6zHO7rq4sf4tlqFrb6laVbS5UNSrIUcH1nN9KXTq1bSrl/9asB7og81aY2V/tgH1x5idRWovTVkZQMCc7qWn1LW5p6na961kIBZThh6g/t5EHBzK4XXVTlhcpvH63NVTTGCNxvtFKVI3Pxek0lbq6r+mpa0apGxZGNJj9MFftiHY9SW9WoCbO7AHgDSb6Z7xL2S3qsd5T/ACjpbdCVzNhb1cAjGMznqXUnfVFO2065J5+OpTT/AORmZ+W1W+JFSvS0+kw39wTUqkeQYgKv/wBpMtqSfWdt/pjXNUa1r1KypnuttNdbm5ccGrj+HT+Y/WfLC+cyb2phWGd/GNtrS10u2FraUhTpLk8klmPLEncsTuSdzNZqFY/FjxnPnd10ceOpusbT69QXNxRo4atXwFJOygTd6VYLSKWyVfeVqjA1SBso8ph9M00ejWrKie/DdoPiBidNolmKN0XGP09x+c048PfORTm5Zhx2t3tjA4HEhlkeEhnu6fNb2URvBI3jCION4CyJREYRvAMBZWAV9I4wTAS4iyMRzLFkSApoBEcRtFkQFEQGjCN4t4C2O8U3jtmMI84BgJYSQm9ZIGiWMQwUG/0hgQDEYo3gKIxRAYvAEYBBURi8QnYhzGKNxKXEYqwgSxiwQI1FgWojV3ixsY1MkcQGLGrFqI1ZIICEJXhCAgEozPEfxA6IlPUNP1SlS7WuaTUqrgfqZDkZ9cH9p7eBNT1T0tZdX6RU0y97lDEPTqp+qk44Yf8AbxEz5cfbHTbgz9M/avkCpb1A/eR2gR5YZHjPbP8A+PNatcClc6/QFrkZanbn3hHyJwJ5Drmlto2tX2nNnNrXejk8ntYgGcf7eUnbuvLhll/G7BQAOJvNMtxVOBNDRbE3Wk3HbUAJxOfJ2cddhp+k0RTUkDO3hN5TsrWmn6BnHM0mm3JZRnmbo1AaJyQNpzZdO6fHEdc6r7mk1OmcHGJr+naRurRFX/KDn5xHV9Jr27ZV3A2mt0zWNR0Gi9stpTuKLAjdsMoM2x/x6c9s9u22t9at7XU2oUrqhUem3xLTqBiPmBPVemdUS6SmwqAgDHOMT5+NBa2oJXttOWjWY8jznqnTdle29tRqXDilTc4z6/KM8f6Txcn2PQdY6x0TSq9G3v8AUrS3q1v0LWqqpb5ZmwNa3qWnfTdXVxnIOQRON1Lo7TtVX3j0Le6cjZqtPuP3jekdBuNEc0alZVtEPw0UyQPQZ4Ezsv1tMp8lbK/0tKVb3jUwVcbgDiZ+lWFkQG92p7hnBE2j06d0pRt9pg2qGhUKEfpPjKa1S5bmmzpadbUyHWmARuNo+rU7EyCMYlLVBQRNVsriWyvTGY/2w6lUHJmpuQa1XGMibS5HwzU1ASWI8fCZS9tb8bHpxaFnRd3dS1Ru7HduPDE7jTrYpSNZ17WfAC/5VjbLTrejb24NvRL06ajv92M5AHjMkiezweN6X2teB5Pl/uT1k0WRvKxDIlYnY4gEbwCIwiCRAWYBjCpglYAGCYZWUVgLPjFsuY1jAgKI2iyI4wCJAQRFsI9hvFNwYCW8YojG8cwgEDEDHeSWyyQNIORGL4RaxqwGDaGp8IAMNBiDRq7RijIzAT1jE8ITowLGCD47Q13IhA1EaogLGrAID0zGINhvKUQx5QDXEYkWuI1RJBgQlEpYcCwIYEEQxAIYOxnzV7cNIOm9eXNZVwl7TS5+pGG/dTPpUTyP8RGjmtpmmawq5NGo1tUOPBviX9wfvMuXHeLXgusnhdIzOtKhFQbjma+k3xYmZb7PxtPOyexhdO00mvsrek2Na/xSbtnPafWIUAHEyars5Cec5bj265n0wL10qVSdtzFrpy3JyQBMXUHWzrYc+MWuthlwm2Bjfxm+M1OmFu7232maRRpXNM4DjO5xxOr6rqrQ0ZKNmhNRSrKoHJnl9bqqlb4V7lKbg7jum76e6/Yu1G5uqRQDCs5BHntmTrJrxzCvUdBWr/h1KpcUKlNiPHcCbL3FRh3UyNvXaean2jqjdvvu5c8jz+02mme0hHcZq03pfzA4zK2WL5cU+u/pO9FAz7ecYtRKp95nPrNInVWm3tH3grIoO2CcETKs7lKqk0m7kmeSk3L226NjbuzBd98eHMWhJIIzLfdsTDbYup8e/lvMW3tvfajb0sfrqKv3MzWAC77RnTtH83r9AeFIGofpx++Jfhx9s5GfPl64Wu9xuYJEIDEqfRafLQBErG8KUYSEiCRDlQFkQSIxoB5gKIMEiMIlEQEssWRHtFMIAERbRjRZ4kAGiWWNJgMYCmEU4jWMS8BTjaSU0kDSLGLFjeGIBrHJFqOIxPDbmEmqY1BnEWIxBAcBCXaCIajMIMXiOXiLXYRqwGKMwhBTeMAki15jUgKBGKIBrDEEQhANYYEAcw1gEOJpOt9AHU/Suo6X25qVaRal6VF+Jf3GPrN4BLGxBkWbmky6u3xU6e5qkEFSDuDyDMygwO87X249Hv051KdTtqWNP1ImopUbJV/nT/5D5+k4ChXK7GebyY+t09fhzmU26GwuADjM3lGl30wxxlZx9vchWBzN3Q1T4AM+E5c47MciupdJW9Tvpu6MRyrbzjU6c93UJuLq5cn/ADNtidwboVDvvLq6el3jtUcS+Odxit45btpNI02hb1AVtaDjIB+EcTvbenpLWu9pQWp+rgbbiazTdE92RuPOZtfQadxUUjIbbcHaT+7b06eP+E+N1btp1zSNOnboKnPdnb7Rw6SsrwfxaVucnJygmv0zp78hVPaxCk5AnXWtAhQTvtM8ubKdL+3t+HNVPZ3o6hWS2DVhuHyRj5Td6RZPpyimM9s2qEYxBqMM7THLkyv1WYs0P8AgK5LkzGNwFG5+kE3HbnfGZltbRl3cDswDzvN70Dbl/wA5fsDgkUUPnjc/2nHV69S5r07agvfWrOERBySZ6ppGnJpOm0LNMH3a/ER/Mx5P3noeBx+2Xv8A08z9S5vXD0n2soySzKnsvEUZUsypAEyoRgmAJ5gkQjKO8ASIBhmAYC2EWY1othzAW3jFHiNMWwihLRbGNYbxTb/KQFNv8otozHMW0BTySNJCWjURggqMwsQgwGMXw8ItY5BsISYpzgRyDEUojUEBixqiAoxGj15hAljVi143jBAasNYCxiyQaxixYEYsAxDEAQxAIcw1gQxxAMSxKBliBrOpenLHqzR6+k6hT76Vb9JGzU3H6WB8CDPjrUFaxvK1E/qpVGpMPEMpIOftPtnjccifHftXsv8ADfaDr1Cn8Km7aoAPJ8N/eYc+Ms26PHysumnp3Qmbb3mSN5zJuShwZk0bzBBBnBcHpY8jraNXJBzN5pdXgHE4m31AbZyJvbHUlDKAdyJlli6MM47azqEuDg4nSafTQ4YruBscTktMuQ6hhj78zqtOqE0wynbGN/CY3p1Y5bjd2lvSqNuoLeOZlrQCg9s1NG87awJYTa/nU7BjHzkXSvbGKkMcnEEntUkyVK6dvczKJpNV12lSQgONvWZXtpvpn1bkKckjbeai/wBfo0yT3b+QnNXnUFe4+CipOfGZ/TmiVLir+buwWxuoPgfOTMNd1S5/iO19m1u911HTvK6kFaLsinldsZ+e89XxPG6PWFr0Nq+m3N2q/lL2uLOo/jTDAnuHyIGfTM9jDdwBBBHmJ7Xg/wDj28D9Q3+72hlGXKM7HEoypZlZhKjBMvwlGAJlGFjaATAowDCMEmADHb+sWTDaLJwIANFmGYtvSADcxTDmMYxbHEgL2EU/MYxxFvAUwGZJGG+ZIGlUiMXcxIjU4gNAEYsWnrGCEmrvGoYpTwI5YDFjRFqMiMU7QgYG0cuIpeIwbiA1YYgLGLtAMQxAEMSQYhiADDEAoYgQxAJeYQgrzCgabrTqi36M6W1PX7kBqdjQNQIf534VfqxAnxZV1266kd9Wvapq3Ny7vVcnlixzPbvxadYU7Pp7T+lqNUe+vKv5u4AP6aaZCA/NiT/0z506au0Nh7nPxI7fvMuafxbePf5tk9PuMtU7YwYJhlQZw13yFBqgOBxNhY3joy93hMVF8I1UAxgytaYz+nYaXrgogKSd/GdHb9XU7ZO01Nj4eU88s+/uGBmbREapgGmT8hMcpHThlk7Gn1hTaoCW+EzaU+s6AHxVQF8uZxVtpFS6Hw2zem021n0nd1Nvddg9RM7pf+TYah1jWuCy2oJUjHdjEwKVGrdnvrOzZ8Jv7LpIUh8e5m4sun1Vxlcgekr7T8LTG/lpNJ0BqlQO67DgTsqFp+XohQMbcTNtrBKKYxv8oVdQFJ8fKZZXbSPH/bizJpGlHOw1FRj/AKGnuPsb6sTqrom0FSr33ungWlxk7ntHwN9Vx9QZ8/e37VESnpOnIfje4aufQKMD92mF7JfaJW6E6kS7fuqWNwBSvKQO5TP6h/xLyPqPGe34M/6o8D9Rv/b0+xjxBzFWl5b6ha0rq1qrWoVkFSnUXhlIyCI0zrcSpDJIYAyjLPEo7QlUAwswSYAmAYRMAmALRZhtAaApjFnaMYQGG0gKYZi2jTtmLbAgJb+kBoZ5gHaAsySmMkDSIATHKBEpxHLtAZiMX94scxgG8BimOWJWOXwhJq8Rg3i1hiEGLGrFpGoJIYsYvEWsYsAxDgAwxAIQxFgwwYBiGDFqd5oup+vOm+jqBq63qtvbMBlaIPdVf5IN4HSAzV9SdUaZ0ppFzqmq3CUaNvTL9pYB6h8FUeJJ2nzj11+KTVtQapZ9J2g02j+n81Vw9dvUDhP3M8d1XW9R1Nnu9Tv7i9uamSalaoXOfrJ0rck9ovV971r1Re6xfPmpWfZQfhpqNlUegGBNFo1wbe7ZM7GYtZizQUYpXVxIyks0nHLV27W3rdxEz6S900Wm1e/AJnQ2i94yJ52c1XqcWWwOmIdBCTvHVaRWSiBnEytbz62ukIpqBXHM7zStFp1GRsDHqJwFsTTdWz9Z6x0XXo3lsgY4ZefWYcjr4m8sNESjTDlFB+U2a2iKOBLr1cEKmAAMQqe4yTMbNtAiiC2AMTMoUsAdq5Pyg0lHiDMpWIAwABIkLUI7Ad9/Oau/rClTqOxwBkkmbNmXBOJ5d7WusE0jR7ilSqDvYdoA5lph7WSK5Z+s3XintE6g/wBI+tK9ZT3ULf8Ag0/LbczXUqxFQdpwZqbcF6xqOcsxLMfUzOU43B3n0PFxzDGYx81zZ++dyfRHsE9rNvptE9Na/eLQtBl7S4rNhaR5NMnwU8jyPzn0Fb3VveUVrW1elXpOMrUpOGVh6EbT4CoVyuCDgzounutOoOjqovNB1S4tiTl6IPdTb5qdjLWMtvt+SeJdCfiW0vVlS16mofkLjYfmaKlqRP8AxLyv0yJ7BpetadrlsLnTL63vKJ/nouGH1xx9ZCzLJgkwjAMJQwDCJgmABMEwjBJgAeIsmExgEwBMWTvCYwGkBbHmLYxjcRTQAIi2jCcRbnMBLnaSU8kDTIYxTmKWMSA5Tk8xoG0SB4xqNvAasapil8I1TiA1DGCJU4jFMBy8YjQdgYlDGA7wHKYYMUpEPMkNBhqZouousNB6StfzGtanQtFIyqMc1H/5UG5njXWH4nqgFS36U0sJ4C7vtz8xTH9zJH0DWuKNrSatXq06NJBlnqMFVR6kzznqr8QXRnTfdStbiprN0v8Au7P9APrUO32zPlnqfrfqXqusa2taxdXY5FNnxTX5KNh9pzVa5quME7ekaU9nsXV/4jeq9f76Gn1aWj2zZHZaH4yPWod/tieW3uo176o1avWerUY5Z3Ysx+ZM1ifEvxHIjGpqwwNpOkW0VOrmt2pgjGSZV1U2xmBRC0EYgbk8xNVyzZkogMZlldgfKVGIO5ZGlm30xyCp9J1umHvUbbzjtMcd/YeeROw0kZxvgjE4OfHVej42W429W1Jp5z4TAVSlXE6GnTNSlkDO2JqLu3enW7hjtnK7tM22o+8VROt6WW5taoanUCjPiZoNGorUC55naaXarTAKHGeZjm6eP47O07XVWep3NjeZ4ZFGyj5zSWTOqgcevImwWp8I73z6ecyWrPpVCeNh5TIDBRknfyEwKbgD4T2+sw9R1NLSkW7skeMmQqa/rVPT7V3Z+3E+YPaH1JU1vVnUuWp0zxnkzuvaN1qxSpTSpgEECeNVWaq71WOSd53+Jw9+1eb5vNqekNtPiLNjxmci5xMK3HYuPGZav4Ez1Y8a3s9c92JkK5CHc7DgeMxFf4hmOFQjBBkhBuFNQsjDOM7Gb/pzqnUdFrLc2F7cWlYfz0nKn9py9xSU1CwG+Y0Ki0x25Q+amRpL6B6Y/Edrdiq09ctqGq0Rsaq/wqw+ePhP2nq3Tnth6Q6lVEpamlnct/uLv+Gc+QP6T958W0tRqW+Fc5HgwEy2ujVAI4PiDHrFtvvgMGAIIIO4I4Mk+Lemfal1Z0g6DTtWrm3U5NvWPvKRHl2nj6YntfSP4lNH1Jadv1DZvp1c7GvRzUpH5j9S/vIuJt7ITAJmNpurafrVsLrTb23vKDcVKLhh9fL6zIbaVSFjFkwmiyYAsYpj5xjGLbkecgLJMEkwmMX3bwKbcmKaMMU2IC33klN6yQNIpxGJ5xQ3jVGwgNUxicxaw1MBwMYDFLxGr4QGqePGMXaKEC9v7TS7R7y+uaNrbUxl6tVgqj6mBmLtCNQKpZiAq7kk4Ani/WP4jtK05Xt+m7U39bj8zXylIfJf1N+08b6k9pvVfVpK6jqlY0CdqFL+HTH/AEjn65lpijb6a6j9svRvTHelbVFvLheaFmPeHPkT+kfeeQdX/iZ1rUS1t0/Z09Konb3zEVK5+Xgv0Bnjjgk5Z2b04EidqbgAH0k+qttZ1/r17qdy13fV61zXfd6ldss31Mwa16X4Kr6DeVUPcNwN5ivRxuBiWnSBVKqkbsx9IhnLfKCwbOJRyox4SBGft4h07gMME8RDH0iwSWgZJfIOYBPjnaC1TtHrEuxbxgG9ccLBFxUHDYiiMSoGy0++7K6O2O5Tn0I8p6BZ1VpdjKfgcBg3pPL0BDbHHrNzp+tXOmVBRqOKtLY4zkD5eRmHNxXP46ODl9L29i0qoKwAyZlajpvvF7goON8gbzm+ltRS7CMj5HGc7j0nodG3F1QyRk+Y5nmcnV09jjsym45nTS9KoByB5ztdMvFKKOJq/wDDjRfOAw+W8zKFBQAcYPzmVbY3TpaN0UQDuxMqlcg7ls+vjNFTdEAJJzjnmOF8lJMqZT1X23VxqIpUu7IAAnn3V3U4p0mAfffiZuta8FpHL4wJ5F1brYrO1NXGTzvNuLj3WPNy+saPqDVH1G8Pae5c+M0d5X/LhVyC5OSD4RlS5FIEphm8DNXWZncsxJJ5Jnr8eHrNPB5OT3ytZKavWpn9KGZ1vrFKqQKn8Mn7TR87ywp8dpsydWjgr3KQy+YhGocZnM215VtGBVsr4jwm5oXlO5TuUhW8VgZLVARFe8JJHhE1KmGAzCVhAfkMvaYoVmovyR8pO6RlFSEs2neMxySGHmo/tH069KoRhlB8pqOxkbIMYKhOzgMPWEOu0TqLVenrpbvSdQuLSsDzScjPz8CPnPZOkPxG1MJb9UWQqDj83arhv+pOD9PtPnOjXqJslRlHlyBMlL2rT/Ui1AfEHB+0XtO33JoXUuj9T2v5nSNQoXlPHxBG+JP+ZTuPrM8kT4c0rqO60m7S6sLyvY3K/pdGKMPrPZejfxFXNv7u26otfzVLYfnLdQKg9WXhvpgyti0ye9PFHczA0bqXSOpbQXmkX9G8onk0zunoy8g/OZzHiUSBjvFE5jGORFMAYAkwCZbbRbHPEAXIzJBfMkDTrGKcxSmGrbwHqYY84oRqmA1TkQ2qJSQvUdURRlixAAHnmJLrSRndgqoCSzHAAHJM+d/ax7bm19q+gaA/u9LP8OvdY+O533C+SfuflA9D6x9vWi6L32mh0v8AGL0AjvVu2ih+fLfTb1nhXU/WPUHWF17/AFq/qVQpJSgvw06foq8D58znUuFpEhNgfERqXAqGXkimwBVVtuYRzztCbA3G8U9XEsKc7QC20B6sA1NpCKar+cPIImL7zaWKhEBr0gdxMaomI8Vs8yyocQNe4wIkbGZ9SjMd6WIGM7EmDHNT3gFIASEeUsiQDEAckS855lkQSCIG10bXbrRrla9Bs9v8pOzDyM+mehLin1BotpqFBStOsgYA+B4I++Z8ogzruh/aLrHRV0psq4Nux/iW9XJpuPUeB9RvObyeD9ybx+uvxfI/by7+PqK40gPTJUbzWV7J6IyPDxmd0T1zpHXGmGtZuKV3TUe+tKjDvpnzH+ZfJh9cQ9VcIGyRn0nl3C43VexjnMpuNBWrGkNzia671AAEBoOr3gUncczh+pOr7fSKZQEVrkj4aYPHqfIS2OFyuornyzGboetOom0+3CoO6rVJVF8B5kzzStXqXDl6zdznmPuNTudTr1Li6qd9Q7DyUeQHlMRyAd9zPV4eKYT/AG8bn5ryX/QKnG8xxTaq2ANpkii1U77CZC0xTG02c7EW1WmM4yYupSPMzmxEOy8GBgMnpHWrOjjEcVB8IdOmoIIEDJXL4JjAZKaDGTCC53AxJEBhAygIQGYEG8ILvJgwgDAYgURhIPESBkQ12gGBkbgNDSkV3ps6eg3H2izcLTgHUMcCBvNG17VNAulu7CvVt6ycVKD9p+o8R6T2bon8Q9G67bTqWgyuNvzVBN/+pP7j7TwKldNUGWOBCNdWO/h4yLNplfbWnaxp2tWou9MvaN3Qbh6TZx6Ecg+hjidp8f8ARvVmo9NaxR1CzuXX3bDvp92BWXxVvMT6i6T6z0vrGwN1YVSrpgVrdz8dEnwPmPIjYylmlpW6Y7RZ2htFkyEgY7yQWMkDTiGIC7CEvMBqHaMG3jFDfiYeva5a9N6Ndatft229rTLt5sfBR6k4H1geZe372gf4Xp69L2NQrcXad92yndKXgnzbx9B6z51L97Z/abHqjqC66l1u81W8bNa5qFyPBR4AegGB9Jq6W9QS0VpvecYgrWemc5l43IgONpZVsKVx7xOYtyd5iW74OMzMzlYCzuIJ4jCu0orAXiTeGFlEQBziEHMrEE5EBoq4lEh+QItT5wsiTALUh4RLU5k5GIJGYGIacApMspmC1OQMXtkIzzHFPSV24gIKEQdxMnAkamrQMvQuo9R6evqN5p9zUoVqTdyOp49PUHxB2M+hOnOvrbrDRRXwlK9pAC4oLwD/AJl/4T+3E+b1t87DmZun3N9pdfutLqpQqOhQmm2CVPImPNwzkn+3RweRlx3/AE9H6060S0rVLKzdal0NmYHK0v8AufSebVveVqj1KlQu7nuZickmXUBBwBvyT5wfds+x285PHwzjnSvNzXku6iNgdqcxi0PFtzCp0lTiGZrGKY7RFliRDMrAkhDEkygmY7sEvtkBQTMYibwsYhIN4DBsIQJAlCFjMkQbxgGBBUQu7ECZxJ7wQGbMWcwGmtiCa7HiKHrBbHnANqhPMukCx34ilGTiPBCjAgNdwi4Epam0SxPjK7sEQNjRqe7UFdjOk6V6ovOnNUo6jY1eytSOCpPwuvireYM5Sm2VjadXGN4H2R0v1NZdWaPR1OzbC1Bh6ZPxUnHKn/3cYM2edzPm72RdbjpnXVoXdQrYXuKdbyRv5X+h2PoZ9HE7zOxeXYW3klNzJIS1J4lgyhiWBJgYu0+fvxAde/4lfjpexq/6tZP3XTKdqlbH6fkufufSewdddUJ0h0rf6scGrTTsoKf5qrbL++/0nx7d3FS4rvVqu1SpUYu7sclmJySfrJitpT8xtqvJ8oozJtse7PnLaQjjtfPnAfiTuJyp85VQ7EwgqkcVBNgN1msBw5+c2NI5QSQQ4kl+EqBRlS5UCjBIzCkgCV2lYhSYkAcSoWJMQKk8ZeJMbwKxIUBk3l/SABoiAaYUn0jourxAZa0+4lj9J2nT1nQbTbKvTp0a4q1WS8BVWZAGI4JBHw4I8/vOTop20VPpmECabM1NmRiMEoxGftAyuoba1tddvqNk3dbJVIpn0mCBICQeMyyfpJExKkzITAoySjJAuWIMkCycwkEBV3jRAIGEGi8y8wGh4JfMXmWN4BSSSjxAFos7w4J2kAkH3jcYETSyWzGs28kC3lAJhk+MU5xAyqLYTMNGwRnmKo/o3lBsnMDZ29Yo28+kPY71mepNCOnXVTuvtOCpknepS4VvmOD9J8zCp8QnW+z/AKpfpTqS11Edxoqeyug/npt+of3+YixMr6raSK99Tr0kq0XFSnUUOjrwykZB+0kyXayGpyIvukzvA8U/EhrpH+E6HTYgYa8qjPj+lB/+xnhLbsTO49seuJrfX2pVaVTvo0GW2QjjCDB/fM4WXil+iO4EyrUYQzHpjLYmTRGCRLQhdX4XzFk5WNuBvEfymQgtuZsLc5pia9tiJm2x+CSMgSCQSQKaVLIlYgCZULEmIASQsSYgCJcvEhgVJJKMgXmDmXKAkwTGYFxtSPrHhYi8bHYnrAzF2RR6SoRP7QTAqX4SpMQJmSQiVxAhEmJMy+YEEsSSwIEkMkowLEuDLEAhLHMoSQLJgy8ys4gQ7QW3lk5lAEwGUlwpaADuTGOe2mB5wMfCPWBR2WK/U4h1TgQaA8YGR+lYKDfPlKJzCpwGk8GZtCr2lWmvHMyUbCD5wPo32L9Uf4t08+lV3LV9OwEJO5pNx9jkfaSeUey/qX/R3qi0rVHxb1j+XreXY22focGSUsXlfQ01HVuv0um+mtR1aocG1osyA/zOdlH3Im2zPGfxGdQ+4stO0Ci2GrsbqsB/lXZQfmcn6SJNprwuvWevVerUYs7ksxPiTuYgneGTAl2Y1JA7h4TIoVO/fO8XbgMrKfGLVjSf6wMq53AMx/CZFQ96ZmP4QBIyCZk2v+zmOeMR1E9q4gZQORLzFZhAmSDzJmCJcC+ZDIss7QA4kwTLIyZfECsSjLJgkwKJgyzIBAoRipIFjVgD2zBujmuo9RM9jMC4GbhP+YQNjiBDzzBPMCpfhKlgwJiURkwpBvADGJYlkSsYgWJeYMsbwL5kxJxLzAkkkkCxJIJIElS5UCAbywN5MbQgNoA3DfpHpIeQIFX464XyAhqPiPpARWOTjyjKfwpnzin3f5w2OCF8oBZxGpsIoDMPuyMQC7vGOpnIBmMTtiPU4QCBmWtUJVBPB22kmMGkhL67JzsOZ8pe1fXf8f691WuG7qVB/wArS/5ae39cmfT+s6kmkaRfai5wtrQeqT8lJH7z40q1Xr1XrVDl6jF2PqTkymKcizKMuUZZUyg2HGZLle1/nFA4OfKZNYe8pBvKBdu3fT7TyP6QG2J+cVRqdj/PaNq8giBUdTG0x1MyaY2gGIYg8QhJBSSSQIIWYIl4hCZlEy8SsQmKJ2gCGRBxAghgSgIYgQCFJKMAW3MxKw/j0/8AmEys7xFUZr0/+aBmciCRDxiUYFY2gfzQydovPxQGeEoHEvwgmAfMrEpTCMATIJZlQLlyhLECSS8SYgSQcy8SiIFypWPnJj5wCBhZi+JYMAWGLhm8lEgfCk+MlVu0FvMYmOXATeASfqzID3MT6yUTkM/pBU9oPrAfSbOcy89kWp7RiRm2yYBA9zgTI5PymNbDlz9I8HH1gNB2kggyQl9A+2rU/wAh7PtQRW7Wunp249QWyf2Uz5hJnvv4irz3eiaTZA/7W5eqR6KmP/lPAmlMU5BJl8iUd5FllUI2j7dveU2Q+W0Uy7SUW7WB9YAfpfeObIHaefCVc0/i7gOZM99Mf5lgCvO0yEfAxMVDvHCBkd8sVNpjltpYaBlqwIlxNJtowNAMSZlAy5IkuUJZMCjKxLEuBWJYEkkCxBJzLlQKim3uKY9Y2JQ/60pMDMzkymjLWg11c0aCsFatUWmGPAyQM/vO46i6L0i2qXOlWL3X56zH8SvUIKOcJwAePjG2PttA8/Jgg/FFoxOzDBGxhE4MB2TiTwlLuJfhAqFBhCBcmJJfhAGWJeJAIEl4klgSwgEkLEowIcGDjEmcGQnIhCjKMgMkqku5P+r59ZhO+SF+8zbgA0W8prGJJ7RzxIGXQrBkdRxwIxFDHJ8JjgikqoOeTHqxVO3xO8Ai2eTxAYliEB3MpiFHMugpCs55MkZK4AAHhLgrxLBgH3SQScSQPTfxE1w2oaJb92SlGq5GeMsB/aeNuJJJWJy+h4kzJJJQanxiLb4TJJAycCpSzMZD2vgySQBYdrmOXiSSBJYkkgMQ4EYrSSQGKYWZJJIsS5JIEkxJJAkuSSBUqSSAJPlF4xcJ65kkgP7iBsSD4Ecg+c31z15rV1b+5q1KDVAMe/FMBztjOfPYb/LyEkkDnAMfISm5kkgNpH4YWcySQKhCSSBZkBkkgXLkkgXLkklhPCUZJIFeEGSSQgJ2k7sySSqSr09tucf5f7zCoL25ZpJIBUiHYvHZ8TJJAoD3zDyEyFxnHhJJAYAJDJJJAO2BJJJA/9k=" alt="江和洲 Hezhou Jiang"></div>
+      <div class="portrait">
+        <div class="frame">
+          <img src="data:image/jpeg;base64,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" alt="江和洲 Hezhou Jiang">
+          <div class="tag"><span>HEZHOU JIANG</span><span>30.26°N</span></div>
+        </div>
+      </div>
     </div>
-
-    <div class="schema" style="margin-top:8px">
-      <div class="row"><span class="k"><span class="zh">教育经历</span><span class="en">Affiliation</span></span><span class="v"><span class="zh">浙江大学 区域与城市规划系 硕博连读<br>厦门大学 城市规划系 本科</span><span class="en">ZJU, Dept. of Reg. & Urb. Planning, Integrated M-PhD Program<br>XMU, Dept. of Urb. Planning, Undergrad.</span></span></div>
-      <div class="row"><span class="k"><span class="zh">研究方向</span><span class="en">Research</span></span><span class="v"><span class="zh">Agent 产品 · Multi-Agent 系统 · 空间数据分析</span><span class="en">Agent products · Multi-agent systems · Spatial data analysis</span></span></div>
-      <div class="row"><span class="k"><span class="zh">所在地</span><span class="en">Location</span></span><span class="v"><span class="zh">中国 · 杭州</span><span class="en">Hangzhou, China</span></span></div>
     </div>
-  </section>
+  </header>
 
+  <main>
+<div class="wrap">
+
+  <!-- 00 profile -->
   <section id="about">
-    <div class="shead"><span class="idx">00</span><h2><span class="zh">背景与方向</span><span class="en">Background & direction</span></h2><span class="rule"></span></div>
-    <ul class="why zh" style="margin: 0 2rem; padding: 0; font-size: 0.98em; color: #666; list-style-position: outside;">
-        <li>从事 Agent 产品设计与多 Agent 协作系统开发，用空间计量、因果推断与 Vibe Coding 解决问题。</li>
-        <li>Agent 产品高强度用户（Claude Code / OpenClaw / Hermes 等），熟悉 System Prompt 工程、Context Engineering 与 Multi-Agent 编排。</li>
-        <li>四年甲级城市规划设计院实践经验，具备城市规划、国土空间与公共治理领域的系统训练。</li>
-    </ul>
-    <p class="why en">PhD candidate in Urban and Rural Planning (4th year), Zhejiang University. Four years of planning practice at Grade-A design institutes.</p>
-    <ul class="why en" style="margin: 0 2rem; padding: 0; font-size: 0.98em; color: #666; list-style-position: outside;">
-        <li>Works on Agent product design and multi-agent collaboration systems, grounded in spatial data analysis and causal inference.</li>
-        <li>Heavy Agent user (Claude Code / OpenClaw / Hermes). Proficient in System Prompt engineering, Context Engineering, and Multi-Agent orchestration.</li>
-        <li>Systematic training in urban planning, territorial spatial planning, and public governance.</li>
-    </ul>
-  </section>
-  <section id="cap">
-    <div class="shead"><span class="idx">01</span><h2><span class="zh">专业能力</span><span class="en">Capabilities</span></h2><span class="rule"></span></div>
-    <div class="grid">
-      <div class="cap reveal">
-        <span class="num">01 · <span class="zh">Vibe Coding / 全栈开发</span><span class="en">Vibe Coding / full-stack</span></span>
-        <p><span class="zh">熟悉Python、Multi-Agent编排、Agent Loop、Tool Use、Context Engineering实践。独立完成从数据底座到前端交互的全链路产品开发。</span><span class="en">Proficient in Python, Multi-Agent orchestration, Agent Loop, Tool Use, and Context Engineering practices. Independently completed the full-chain product development from the data foundation to the front-end interaction.</span></p>
-        <div class="chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">SQLite</span><span class="chip">System Prompt</span></div>
+    <div class="shead"><span class="idx">00</span><h2><span class="zh">背景与方向</span><span class="en">Profile &amp; direction</span></h2><span class="line"></span></div>
+    <div class="about-grid">
+      <div>
+        <p class="lead"><span class="zh">在规划、数据与代码的交叉处工作 —— 一半做研究，一半发产品。</span><span class="en">Working where planning, data and code meet — half research, half shipping.</span></p>
+        <div class="tblock">
+          <div class="row"><span class="k"><span class="zh">教育</span><span class="en">Education</span></span><span class="v"><span class="zh">浙江大学 · 区域与城市规划系 · 硕博连读<br>厦门大学 · 城市规划系 · 本科</span><span class="en">Zhejiang Univ. · Reg. &amp; Urban Planning · Integrated M-PhD<br>Xiamen Univ. · Urban Planning · B.Eng.</span></span></div>
+          <div class="row"><span class="k"><span class="zh">方向</span><span class="en">Focus</span></span><span class="v"><span class="zh">Agent 产品 · Multi-Agent 系统 · 空间数据分析 · 因果推断</span><span class="en">Agent products · Multi-agent systems · Spatial data · Causal inference</span></span></div>
+          <div class="row"><span class="k"><span class="zh">所在</span><span class="en">Based</span></span><span class="v"><span class="zh">中国 · 杭州</span><span class="en">Hangzhou, China</span></span></div>
+        </div>
       </div>
-      <div class="cap reveal">
-        <span class="num">02 · <span class="zh">数据分析与建模</span><span class="en">Data analysis & modeling</span></span>
-        <p><span class="zh">机器学习、深度学习、SHAP 归因、因果推断、空间计量，多源数据采集、清洗与指标体系设计。</span><span class="en">Machine Learning, Deep Learning, SHAP Attribution, Causal Inference, Spatial Econometrics. Multi-source data acquisition, cleaning, and indicator system design.</span></p>
-        <div class="chips"><span class="chip">Causal inference</span><span class="chip">SHAP</span><span class="chip">Spatial econometrics</span><span class="chip">SVM</span></div>
-      </div>
-      <div class="cap reveal">
-        <span class="num">03 · <span class="zh">产品与系统设计</span><span class="en">Product & system design</span></span>
-        <p><span class="zh">擅长从公共管理（政府-企业-用户）三方角色场景出发，定义产品需求、交互模式与数据权限体系。设计 Multi-Agent 协作流程、质量门禁与熔断仲裁机制。</span><span class="en">Defines product requirements, interaction modes, and data permission systems from dual government-enterprise user scenarios. Designs Multi-Agent collaboration workflows, quality gates, and circuit breaker arbitration.</span></p>
-        <div class="chips"><span class="chip"><span class="zh">需求分析</span><span class="en">Requirements</span></span><span class="chip"><span class="zh">系统架构</span><span class="en">Architecture</span></span><span class="chip"><span class="zh">质量保障</span><span class="en">Quality</span></span></div>
-      </div>
-      <div class="cap reveal">
-        <span class="num">04 · <span class="zh">领域基础</span><span class="en">Domain foundation</span></span>
-        <p><span class="zh">四年甲级城市规划院实践、十年行业经验，覆盖国土空间规划、土地资源评估、生态系统服务与城市治理，熟悉行业业务逻辑与政策规范。</span><span class="en">Four years of planning practice at Grade-A design institutes, covering territorial spatial planning, land resource assessment, ecosystem services, and urban governance.</span></p>
-        <div class="chips"><span class="chip"><span class="zh">城乡规划</span><span class="en">Urban planning</span></span><span class="chip"><span class="zh">国土空间</span><span class="en">Territorial planning</span></span><span class="chip"><span class="zh">公共治理</span><span class="en">Governance</span></span></div>
-      </div>
+      <ul class="about-list">
+        <li class="zh">从事 <b>Agent 产品设计</b>与多 Agent 协作系统开发，用空间计量、因果推断与 Vibe Coding 解决真实问题。</li>
+        <li class="zh">Agent 产品高强度用户（Claude Code / OpenClaw / Hermes 等），熟悉 <b>System Prompt 工程</b>、Context Engineering 与 Multi-Agent 编排。</li>
+        <li class="zh">四年甲级城市规划设计院实践，具备城市规划、国土空间与公共治理领域的系统训练。</li>
+        <li class="en">Works on <b>Agent product design</b> and multi-agent systems, grounded in spatial econometrics, causal inference and vibe coding.</li>
+        <li class="en">Heavy Agent user (Claude Code / OpenClaw / Hermes). Proficient in <b>System Prompt engineering</b>, context engineering and multi-agent orchestration.</li>
+        <li class="en">Four years at Grade-A design institutes — systematic training in urban, territorial and governance planning.</li>
+      </ul>
     </div>
   </section>
+</div>
 
+<div class="wrap">
+  <!-- 01 journey -->
+  <section id="journey">
+    <div class="shead"><span class="idx">01</span><h2><span class="zh">履历</span><span class="en">Journey</span></h2><span class="line"></span></div>
+    <ul class="tl">
+      <li class="reveal">
+        <div class="when">2024 — <span class="zh">今</span><span class="en">now</span><span class="tag">Independent / Agent</span></div>
+        <div>
+          <div class="role"><span class="zh">独立开发者</span><span class="en">Independent developer</span></div>
+          <h3><span class="zh">Agent 产品与 Multi-Agent 系统</span><span class="en">Agent products &amp; multi-agent systems</span></h3>
+          <p class="desc"><span class="zh">独立设计并全栈交付「城市产业空间智能助手」与「多 Agent 软件工程工作流」，把空间数据、因果推断和 Agent 编排做进能跑的产品里。</span><span class="en">Solo-built the Urban Industry Assistant and a multi-agent software-engineering workflow end to end — putting spatial data, causal inference and agent orchestration into products that ship.</span></p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">Multi-Agent</span><span class="chip">Vibe Coding</span><span class="chip">System Prompt</span></div>
+        </div>
+      </li>
+      <li class="reveal">
+        <div class="when">2022 — <span class="zh">今</span><span class="en">now</span><span class="tag">PhD / Research</span></div>
+        <div>
+          <div class="role"><span class="zh">浙江大学 · 城乡规划 博士研究生（硕转博）</span><span class="en">Zhejiang University · PhD, Urban Planning</span></div>
+          <h3><span class="zh">空间数据分析 · 因果推断 · 城市治理</span><span class="en">Spatial data · Causal inference · Urban governance</span></h3>
+          <p class="desc"><span class="zh">研究住房公平、碳储量与碳转移、生态系统服务供需，方法覆盖空间计量、因果推断与机器学习，已发表 8 篇论文。</span><span class="en">Research on housing equity, carbon storage &amp; transfer, and ecosystem-service supply–demand, spanning spatial econometrics, causal inference and machine learning — 8 papers published.</span></p>
+          <div class="chips"><span class="chip"><span class="zh">空间计量</span><span class="en">Spatial econ.</span></span><span class="chip"><span class="zh">因果推断</span><span class="en">Causal inference</span></span><span class="chip">SHAP</span><span class="chip">InVEST</span></div>
+        </div>
+      </li>
+      <li class="reveal">
+        <div class="when">2018 — 2022<span class="tag">Practice / A-institute</span></div>
+        <div>
+          <div class="role"><span class="zh">规划设计师 · 厦门大学规划院 · 中国联合工程（甲级院）</span><span class="en">Urban planner · XMU Planning Institute · China United Engineering</span></div>
+          <h3><span class="zh">四年甲级院实践</span><span class="en">Four years at Grade-A institutes</span></h3>
+          <p class="desc"><span class="zh">多个项目负责人或执行负责人，主导从框架搭建到成果交付全过程，覆盖旅游、社区、国土空间与现代农业规划，承担规划文本与专题报告核心编制。</span><span class="en">Lead or executing lead on multiple projects, from framework to delivery — across tourism, community, territorial and modern-agriculture planning, as core author of planning documents and technical reports.</span></p>
+          <div class="chips"><span class="chip"><span class="zh">国土空间</span><span class="en">Territorial</span></span><span class="chip">8+ <span class="zh">项目</span><span class="en">projects</span></span><span class="chip"><span class="zh">省一等奖</span><span class="en">1st Prize</span></span></div>
+          <a class="minibtn" href="./portfolio.pdf" target="_blank" rel="noopener"><span class="zh">规划作品集 ↗</span><span class="en">Planning portfolio ↗</span></a>
+        </div>
+      </li>
+      <li class="reveal">
+        <div class="when">2013 — 2018<span class="tag">Undergraduate</span></div>
+        <div>
+          <div class="role"><span class="zh">厦门大学 · 城乡规划 本科</span><span class="en">Xiamen University · B.Eng.</span></div>
+          <h3><span class="zh">城乡规划 · 工学学士</span><span class="en">B.Eng. in Urban Planning</span></h3>
+          <p class="desc"><span class="zh">系统的规划设计训练，打下城市、土地与公共治理的专业底子。</span><span class="en">Systematic training in planning and design — the foundation in urban, land and governance work.</span></p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 02 selected work -->
   <section id="proj">
-    <div class="shead"><span class="idx">02</span><h2><span class="zh">代表性项目</span><span class="en">Selected work</span></h2><span class="rule"></span></div>
+    <div class="shead"><span class="idx">02</span><h2><span class="zh">代表性项目</span><span class="en">Selected work</span></h2><span class="line"></span></div>
 
-    <!-- 要给某个项目加详情页：把 <div class="proj reveal"> 改成
-         <a class="proj reveal" href="./页面文件名.html">，并在卡片末尾加一行
-         <div class="proj-more"><span class="zh">阅读全文</span><span class="en">Read the study</span> <span class="arrow">→</span></div>
-         详情页可仿照 work-housing.html 制作。 -->
-
-    <!-- 城市产业空间智能助手 → work-urban-industry.html -->
-    <a class="proj reveal" href="./work-urban-industry.html">
-      <div class="ptop"><h3><span class="zh">城市产业空间智能助手</span><span class="en">Urban Industry Assistant</span></h3><span class="badge soft"><span class="zh">独立项目</span><span class="en">Project</span></span></div>
-      <p><span class="zh">面向县域政府的 AI 自进化产业用地评估系统。基于 185,564 个 100m 网格与 74 维评估指标，通过四种交互模式覆盖规划评估、产业招商与企业择地全场景。《城市天际线》搬进现实。</span><span class="en">AI self-evolving industrial land evaluation system for county governments. 185,564 grid cells, 74 indicators, four interaction modes covering planning, investment, and site selection — bringing Cities: Skylines into reality.</span></p>
-      <div class="meta">185,564 grids · 74 indicators · 14 industries · AI self-evolving &nbsp;→&nbsp; <span>Full-stack · v2.4.0</span></div>
-      <div class="proj-more"><span class="zh">阅读全文</span><span class="en">Read the study</span> <span class="arrow">→</span></div>
-    </a>
-
-    <!-- 多 Agent 软件工程工作流 → work-agent-team.html -->
-    <a class="proj reveal" href="./work-agent-team.html">
-      <div class="ptop"><h3><span class="zh">多 Agent 软件工程工作流</span><span class="en">Multi-Agent software engineering workflow</span></h3><span class="badge soft"><span class="zh">独立项目</span><span class="en">Project</span></span></div>
-      <p><span class="zh">一套可复用的 AI Agent 协作框架——Orchestrator 调度 8 个 Sub-Agent，契约驱动并行开发，8 层质量门禁 + 测试 Agent 自修复内循环。已在 2+ 项目中验证。</span><span class="en">A reusable AI agent collaboration framework — Orchestrator dispatches 8 sub-agents, contract-driven parallel dev, 8-layer quality gates with self-healing test loops. Validated in 2+ projects.</span></p>
-      <div class="meta">9 Agents · contract-driven · quality gates · self-healing</div>
-      <div class="proj-more"><span class="zh">阅读全文</span><span class="en">Read the study</span> <span class="arrow">→</span></div>
-    </a>
-
-    <a class="proj reveal" href="./work-housing.html">
-      <div class="ptop"><h3><span class="zh">住房公平与绿灰基础设施</span><span class="en">Housing equity & infrastructure</span></h3><span class="badge"><span class="zh">第一作者</span><span class="en">First author</span></span></div>
-      <p><span class="zh">基于杭州 2012–2023 年 118,181 条房产交易与基础设施空间数据，采用空间计量与因果推断方法，评估绿色与灰色基础设施对房价及交易活跃度的影响。</span><span class="en">Using 118,181 Hangzhou housing transactions and infrastructure geodata (2012–2023), applied spatial econometrics and causal inference to assess how green and grey infrastructure affect prices and turnover.</span></p>
-      <div class="meta">118,181 records · spatial econometrics · causal inference &nbsp;→&nbsp; <span>Habitat International, 2026</span></div>
-      <div class="proj-more"><span class="zh">阅读全文</span><span class="en">Read the study</span> <span class="arrow">→</span></div>
-    </a>
-
-    <a class="proj reveal" href="./work-carbon-storage.html">
-      <div class="ptop"><h3><span class="zh">碳储量的多尺度分析</span><span class="en">Multi-scale carbon storage</span></h3><span class="badge"><span class="zh">共同一作</span><span class="en">Co-first</span></span></div>
-      <p><span class="zh">基于 369 个城市、3 个时期的面板数据，结合 InVEST、多元回归与 Moran's I 空间自相关，解析城市发展对碳储量的多尺度影响。</span><span class="en">Using panel data for 369 cities across 3 periods, combined InVEST, multiple regression, and Moran's I to analyze the multi-scale effects of urban development on carbon storage.</span></p>
-      <div class="meta">369 cities · panel · spatial autocorrelation &nbsp;→&nbsp; <span>Ecological Indicators, 2023</span></div>
-      <div class="proj-more"><span class="zh">阅读全文</span><span class="en">Read the study</span> <span class="arrow">→</span></div>
-    </a>
-
-    <!-- 城市间碳转移与配额 → work-carbon-transfer.html -->
-    <a class="proj reveal" href="./work-carbon-transfer.html">
-      <div class="ptop"><h3><span class="zh">城市间碳转移与配额</span><span class="en">Carbon transfer &amp; quota</span></h3><span class="badge soft"><span class="zh">地理学报</span><span class="en">Acta Geographica Sinica</span></span></div>
-      <p><span class="zh">基于市级投入产出表测算城市间碳转移，结合 Tapio 脱钩、随机森林、Shapley 值与合作博弈模型，构建长三角城市群碳配额分配方案。</span><span class="en">Measured inter-city carbon transfer from city-level input-output tables, then combined Tapio decoupling, random forest, Shapley value, and cooperative game theory to design a carbon quota allocation scheme for the Yangtze River Delta.</span></p>
-      <div class="meta">input-output · random forest · Shapley value · cooperative game &nbsp;→&nbsp; <span>Acta Geographica Sinica, 2026</span></div>
-      <div class="proj-more"><span class="zh">阅读全文</span><span class="en">Read the study</span> <span class="arrow">→</span></div>
-    </a>
+    <div class="plate reveal">
+      <div class="top" role="button" tabindex="0" aria-expanded="false">
+        <span class="pid">P·01</span>
+        <span>
+          <h3><span class="zh">城市产业空间智能助手</span><span class="en">Urban Industry Assistant</span></h3>
+          <span class="oneline"><span class="zh">面向县域政府的 AI 自进化产业用地评估系统 ——《城市天际线》搬进现实。</span><span class="en">A self-evolving industrial-land evaluation system for county governments — Cities: Skylines, made real.</span></span>
+        </span>
+        <span class="kindwrap"><span class="kind"><span class="zh">独立全栈</span><span class="en">Full-stack</span></span><span class="exp">+</span></span>
+      </div>
+      <div class="body"><div class="inner">
+        <p class="detail"><span class="zh">基于 185,564 个 100m 网格与 74 维评估指标，通过四种交互模式（政策咨询 / 企业选址 / 框选推荐 / 点选分析）覆盖规划评估、产业招商与企业择地全场景；集成 EvoMap 自进化协议，让 Agent 的评估方法论随使用不断优化。</span><span class="en">Built on 185,564 100m grid cells and 74 indicators, with four interaction modes — policy consultation, enterprise site-matching, lasso recommendation and click-to-inspect — covering planning, investment and site selection. The EvoMap protocol lets the agent's methodology improve with use.</span></p>
+        <div class="metrics">
+          <div class="metric"><div class="mv">185,564</div><div class="ml"><span class="zh">评估网格</span><span class="en">grid cells</span></div></div>
+          <div class="metric"><div class="mv">74</div><div class="ml"><span class="zh">评估指标</span><span class="en">indicators</span></div></div>
+          <div class="metric"><div class="mv">14</div><div class="ml"><span class="zh">产业方向</span><span class="en">industries</span></div></div>
+          <div class="metric"><div class="mv">v2.4.0</div><div class="ml"><span class="zh">迭代版本</span><span class="en">releases</span></div></div>
+        </div>
+        <div class="rowtags"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">EvoMap</span><span class="chip"><span class="zh">AI 自进化</span><span class="en">Self-evolving</span></span><span class="chip"><span class="zh">全栈</span><span class="en">Full-stack</span></span></div>
+        <a class="read" href="./work-urban-industry.html"><span class="zh">阅读全文</span><span class="en">Read the study</span> →</a>
+      </div></div>
     </div>
 
-    <!-- 生态系统服务供需与驱动 → work-ecosystem-services.html -->
-    <a class="proj reveal" href="./work-ecosystem-services.html">
-      <div class="ptop"><h3><span class="zh">生态系统服务的供需与驱动</span><span class="en">Ecosystem-service supply & demand</span></h3></div>
-      <p><span class="zh">基于 InVEST 测算生态系统服务供需，采用地理探测器与随机森林解析其驱动机制。</span><span class="en">Computed ecosystem-service supply and demand with InVEST, then used a geo-detector and random forest to analyze the underlying drivers.</span></p>
-      <div class="meta">InVEST · geo-detector · random forest &nbsp;→&nbsp; <span>Environmental Science, 2025</span></div>
-      <div class="proj-more"><span class="zh">阅读全文</span><span class="en">Read the study</span> <span class="arrow">→</span></div>
-    </a>
+    <div class="plate reveal">
+      <div class="top" role="button" tabindex="0" aria-expanded="false">
+        <span class="pid">P·02</span>
+        <span>
+          <h3><span class="zh">多 Agent 软件工程工作流</span><span class="en">Multi-Agent SWE workflow</span></h3>
+          <span class="oneline"><span class="zh">可复用的 AI Agent 协作框架 —— Orchestrator 调度 8 个 Sub-Agent，契约驱动并行开发。</span><span class="en">A reusable agent-collaboration framework — an orchestrator dispatches 8 sub-agents in contract-driven parallel dev.</span></span>
+        </span>
+        <span class="kindwrap"><span class="kind"><span class="zh">独立框架</span><span class="en">Framework</span></span><span class="exp">+</span></span>
+      </div>
+      <div class="body"><div class="inner">
+        <p class="detail"><span class="zh">一个 Orchestrator 调度 8 个 Sub-Agent，以契约驱动的方式并行开发；配 8 层质量门禁与测试 Agent 自修复内循环，保证多 Agent 协作下的交付质量。已在 2+ 项目中验证。</span><span class="en">An orchestrator dispatches 8 sub-agents in contract-driven parallel development, backed by 8 layers of quality gates and a self-healing test-agent loop that guards delivery quality. Validated across 2+ projects.</span></p>
+        <div class="metrics">
+          <div class="metric"><div class="mv">9</div><div class="ml"><span class="zh">Agent 协作</span><span class="en">agents</span></div></div>
+          <div class="metric"><div class="mv">8</div><div class="ml"><span class="zh">质量门禁</span><span class="en">quality gates</span></div></div>
+          <div class="metric"><div class="mv">2+</div><div class="ml"><span class="zh">已验证项目</span><span class="en">projects</span></div></div>
+        </div>
+        <div class="rowtags"><span class="chip"><span class="zh">契约驱动</span><span class="en">Contract-driven</span></span><span class="chip"><span class="zh">质量门禁</span><span class="en">Quality gates</span></span><span class="chip"><span class="zh">自修复</span><span class="en">Self-healing</span></span></div>
+        <a class="read" href="./work-agent-team.html"><span class="zh">阅读全文</span><span class="en">Read the study</span> →</a>
+      </div></div>
+    </div>
+
+    <div class="plate reveal">
+      <div class="top" role="button" tabindex="0" aria-expanded="false">
+        <span class="pid">P·03</span>
+        <span>
+          <h3><span class="zh">住房公平与绿灰基础设施</span><span class="en">Housing equity &amp; green–grey infrastructure</span></h3>
+          <span class="oneline"><span class="zh">118,181 条杭州房产交易 + 空间计量与因果推断，评估基础设施对房价的影响。</span><span class="en">118,181 Hangzhou transactions with spatial econometrics and causal inference on infrastructure's price effects.</span></span>
+        </span>
+        <span class="kindwrap"><span class="kind author"><span class="zh">第一作者</span><span class="en">First author</span></span><span class="exp">+</span></span>
+      </div>
+      <div class="body"><div class="inner">
+        <p class="detail"><span class="zh">基于杭州 2012–2023 年 118,181 条房产交易与基础设施空间数据，采用空间计量与因果推断，评估绿色与灰色基础设施对房价及交易活跃度的成本—收益动态。</span><span class="en">Using 118,181 Hangzhou housing transactions and infrastructure geodata (2012–2023), applied spatial econometrics and causal inference to the cost–benefit dynamics of green and grey infrastructure on prices and turnover.</span></p>
+        <div class="metrics">
+          <div class="metric"><div class="mv">118,181</div><div class="ml"><span class="zh">交易记录</span><span class="en">records</span></div></div>
+          <div class="metric"><div class="mv">12 yrs</div><div class="ml">2012–2023</div></div>
+        </div>
+        <div class="rowtags"><span class="chip"><span class="zh">空间计量</span><span class="en">Spatial econ.</span></span><span class="chip"><span class="zh">因果推断</span><span class="en">Causal inference</span></span><span class="chip venue">Habitat International · 2026</span></div>
+        <a class="read" href="./work-housing.html"><span class="zh">阅读全文</span><span class="en">Read the study</span> →</a>
+      </div></div>
+    </div>
+
+    <div class="plate reveal">
+      <div class="top" role="button" tabindex="0" aria-expanded="false">
+        <span class="pid">P·04</span>
+        <span>
+          <h3><span class="zh">碳储量的多尺度分析</span><span class="en">Multi-scale carbon storage</span></h3>
+          <span class="oneline"><span class="zh">369 个城市 3 期面板 + InVEST、多元回归与 Moran's I 空间自相关。</span><span class="en">369 cities, 3 periods — InVEST, multiple regression and Moran's I spatial autocorrelation.</span></span>
+        </span>
+        <span class="kindwrap"><span class="kind author"><span class="zh">共同一作</span><span class="en">Co-first</span></span><span class="exp">+</span></span>
+      </div>
+      <div class="body"><div class="inner">
+        <p class="detail"><span class="zh">基于 369 个城市、3 个时期的面板数据，结合 InVEST、多元回归与 Moran's I 空间自相关，系统解析城市发展对碳储量的多尺度影响。</span><span class="en">Panel data for 369 cities across 3 periods, combining InVEST, multiple regression and Moran's I to analyze the multi-scale effects of urban development on carbon storage.</span></p>
+        <div class="metrics">
+          <div class="metric"><div class="mv">369</div><div class="ml"><span class="zh">城市</span><span class="en">cities</span></div></div>
+          <div class="metric"><div class="mv">3</div><div class="ml"><span class="zh">时期面板</span><span class="en">periods</span></div></div>
+        </div>
+        <div class="rowtags"><span class="chip">InVEST</span><span class="chip">Moran's I</span><span class="chip venue">Ecological Indicators · 2023</span></div>
+        <a class="read" href="./work-carbon-storage.html"><span class="zh">阅读全文</span><span class="en">Read the study</span> →</a>
+      </div></div>
+    </div>
+
+    <div class="plate reveal">
+      <div class="top" role="button" tabindex="0" aria-expanded="false">
+        <span class="pid">P·05</span>
+        <span>
+          <h3><span class="zh">城市间碳转移与配额</span><span class="en">Inter-city carbon transfer &amp; quota</span></h3>
+          <span class="oneline"><span class="zh">投入产出 + Tapio 脱钩、随机森林、Shapley 值与合作博弈，构建长三角碳配额方案。</span><span class="en">Input–output plus Tapio decoupling, random forest, Shapley value and cooperative game for a YRD carbon-quota scheme.</span></span>
+        </span>
+        <span class="kindwrap"><span class="kind author"><span class="zh">地理学报</span><span class="en">Acta Geogr.</span></span><span class="exp">+</span></span>
+      </div>
+      <div class="body"><div class="inner">
+        <p class="detail"><span class="zh">基于市级投入产出表测算城市间碳转移，结合 Tapio 脱钩、随机森林、Shapley 值与合作博弈模型，构建长三角城市群的碳配额分配方案。</span><span class="en">Measured inter-city carbon transfer from city-level input–output tables, then combined Tapio decoupling, random forest, Shapley value and cooperative game theory to design a carbon-quota allocation for the Yangtze River Delta.</span></p>
+        <div class="rowtags"><span class="chip"><span class="zh">投入产出</span><span class="en">Input–output</span></span><span class="chip"><span class="zh">随机森林</span><span class="en">Random forest</span></span><span class="chip">Shapley</span><span class="chip venue"><span class="zh">地理学报</span><span class="en">Acta Geographica Sinica</span> · 2026</span></div>
+        <a class="read" href="./work-carbon-transfer.html"><span class="zh">阅读全文</span><span class="en">Read the study</span> →</a>
+      </div></div>
+    </div>
+
+    <div class="plate reveal">
+      <div class="top" role="button" tabindex="0" aria-expanded="false">
+        <span class="pid">P·06</span>
+        <span>
+          <h3><span class="zh">生态系统服务的供需与驱动</span><span class="en">Ecosystem-service supply &amp; demand</span></h3>
+          <span class="oneline"><span class="zh">InVEST 测算供需 + 地理探测器与随机森林解析驱动机制。</span><span class="en">InVEST supply–demand with a geo-detector and random forest on the drivers.</span></span>
+        </span>
+        <span class="kindwrap"><span class="kind"><span class="zh">合作作者</span><span class="en">Co-author</span></span><span class="exp">+</span></span>
+      </div>
+      <div class="body"><div class="inner">
+        <p class="detail"><span class="zh">基于 InVEST-OPGD-RF 框架测算浙江省县域生态系统服务供需，采用地理探测器与随机森林解析其时空演变与驱动机制。</span><span class="en">Using an InVEST-OPGD-RF framework, computed ecosystem-service supply and demand across Zhejiang counties, then used a geo-detector and random forest to unpack the spatiotemporal drivers.</span></p>
+        <div class="rowtags"><span class="chip">InVEST</span><span class="chip"><span class="zh">地理探测器</span><span class="en">Geo-detector</span></span><span class="chip"><span class="zh">随机森林</span><span class="en">Random forest</span></span><span class="chip venue"><span class="zh">环境科学</span><span class="en">Environmental Science</span> · 2025</span></div>
+        <a class="read" href="./work-ecosystem-services.html"><span class="zh">阅读全文</span><span class="en">Read the study</span> →</a>
+      </div></div>
+    </div>
   </section>
 
+  <!-- 03 publications -->
   <section id="pubs">
-    <div class="shead"><span class="idx">03</span><h2><span class="zh">发表论文</span><span class="en">Publications</span></h2><span class="rule"></span></div>
+    <div class="shead"><span class="idx">03</span><h2><span class="zh">发表论文</span><span class="en">Publications</span></h2><span class="line"></span></div>
     <ul class="pubs">
-      <li><span class="yr">2026</span><span class="body">
-        <a class="ttl" href="./work-housing.html">Quantifying amenity impact on housing equity: cost-benefit dynamics of urban green and grey infrastructure in residential regeneration</a>
-        <span class="fa"><span class="zh">第一作者</span><span class="en">First author</span></span>
-        <div class="venue"><em>Habitat International</em> · <span class="zh">中科院一区</span><span class="en">CAS Tier 1 SCI</span> · <a href="https://doi.org/10.1016/j.habitatint.2026.103730" target="_blank" rel="noopener" style="font-size:.82rem">DOI ↗</a></div></span></li>
+      <li><span class="yr">2026</span><span>
+        <a class="ttl" href="./work-housing.html">Quantifying amenity impact on housing equity: cost-benefit dynamics of urban green and grey infrastructure in residential regeneration<span class="fa"><span class="zh">第一作者</span><span class="en">First author</span></span></a>
+        <div class="venue"><em>Habitat International</em> · <span class="zh">中科院一区</span><span class="en">CAS Tier 1 SCI</span> · <a href="https://doi.org/10.1016/j.habitatint.2026.103730" target="_blank" rel="noopener">DOI ↗</a></div></span></li>
 
-      <li><span class="yr">2023</span><span class="body">
-        <a class="ttl" href="./work-carbon-storage.html">Comparative evaluation of multi-scale spatiotemporal variability and drivers of carbon storage: 369 cities, China</a>
-        <span class="fa"><span class="zh">共同一作</span><span class="en">Co-first</span></span>
-        <div class="venue"><em>Ecological Indicators</em> · <span class="zh">中科院一区</span><span class="en">CAS Tier 1 SCI</span> · <a href="https://doi.org/10.1016/j.ecolind.2023.110568" target="_blank" rel="noopener" style="font-size:.82rem">DOI ↗</a></div></span></li>
+      <li><span class="yr">2023</span><span>
+        <a class="ttl" href="./work-carbon-storage.html">Comparative evaluation of multi-scale spatiotemporal variability and drivers of carbon storage: 369 cities, China<span class="fa"><span class="zh">共同一作</span><span class="en">Co-first</span></span></a>
+        <div class="venue"><em>Ecological Indicators</em> · <span class="zh">中科院一区</span><span class="en">CAS Tier 1 SCI</span> · <a href="https://doi.org/10.1016/j.ecolind.2023.110568" target="_blank" rel="noopener">DOI ↗</a></div></span></li>
 
-      <li><span class="yr">2026</span><span class="body">
+      <li><span class="yr">2026</span><span>
         <a class="ttl" href="./work-carbon-transfer.html"><span class="zh">长三角城市群碳不公平格局及其碳配额</span><span class="en">Carbon inequality patterns and carbon quota allocation in the Yangtze River Delta</span></a>
-        <div class="venue"><em><span class="zh">地理学报</span><span class="en">Acta Geographica Sinica</span></em> · <span class="zh">ZJU 一级期刊 · CSSCI</span><span class="en">ZJU Tier-1 · CSSCI</span> · <a href="https://doi.org/10.11821/dlxb202601009" target="_blank" rel="noopener" style="font-size:.82rem">DOI ↗</a></div></span></li>
+        <div class="venue"><em><span class="zh">地理学报</span><span class="en">Acta Geographica Sinica</span></em> · <span class="zh">ZJU 一级期刊 · CSSCI</span><span class="en">ZJU Tier-1 · CSSCI</span> · <a href="https://doi.org/10.11821/dlxb202601009" target="_blank" rel="noopener">DOI ↗</a></div></span></li>
 
-      <li><span class="yr">2025</span><span class="body">
+      <li><span class="yr">2025</span><span>
         <a class="ttl" href="https://doi.org/10.1186/s12942-025-00421-x" target="_blank" rel="noopener">Environmental drivers of CVD DALYs: 20-year macro-level evidence from China's administrative data</a>
         <div class="venue"><em>International Journal of Health Geographics</em></div></span></li>
 
-      <li><span class="yr">2024</span><span class="body">
+      <li><span class="yr">2024</span><span>
         <a class="ttl" href="https://doi.org/10.3390/buildings14072165" target="_blank" rel="noopener">Predicting land use changes under SSP-RCP scenarios for high-density urban areas: Hangzhou, China</a>
         <div class="venue"><em>Buildings</em></div></span></li>
 
-      <li><span class="yr">2022</span><span class="body">
+      <li><span class="yr">2022</span><span>
         <a class="ttl" href="https://doi.org/10.3390/land11122213" target="_blank" rel="noopener">Spatial-temporal evolution and prediction of carbon storage: MOP–PLUS–InVEST framework, Hangzhou</a>
         <div class="venue"><em>Land</em></div></span></li>
 
-      <li><span class="yr">2025</span><span class="body">
+      <li><span class="yr">2025</span><span>
         <a class="ttl" href="https://doi.org/10.13227/j.hjkx.202411177" target="_blank" rel="noopener"><span class="zh">区域视角下碳平衡压力与创新能力脱钩状态分异：长三角核心城市群</span><span class="en">Divergence of decoupling between carbon balance pressure and innovation capability: YRD core cities</span></a>
         <div class="venue"><em><span class="zh">环境科学</span><span class="en">Environmental Science</span></em></div></span></li>
 
-      <li><span class="yr">2025</span><span class="body">
+      <li><span class="yr">2025</span><span>
         <a class="ttl" href="./work-ecosystem-services.html"><span class="zh">基于 InVEST-OPGD-RF 框架的浙江省县域生态系统服务供需时空演变及驱动力</span><span class="en">Ecosystem-service supply–demand and drivers in Zhejiang, InVEST-OPGD-RF framework</span></a>
-        <div class="venue"><em><span class="zh">环境科学</span><span class="en">Environmental Science</span></em> · <a href="https://doi.org/10.13227/j.hjkx.202508174" target="_blank" rel="noopener" style="font-size:.82rem">DOI ↗</a></div></span></li>
-
+        <div class="venue"><em><span class="zh">环境科学</span><span class="en">Environmental Science</span></em> · <a href="https://doi.org/10.13227/j.hjkx.202508174" target="_blank" rel="noopener">DOI ↗</a></div></span></li>
     </ul>
   </section>
 
-  <section id="practice">
-    <div class="shead"><span class="idx">04</span><h2><span class="zh">履历</span><span class="en">Experience</span></h2><span class="rule"></span></div>
-    <div class="two">
-      <div>
-        <ul class="tl">
-          <li><span class="t">2022–<span class="zh">至今</span><span class="en">now</span></span><span><span class="zh">浙江大学 城乡规划 博士研究生（硕转博），导师 李咏华</span><span class="en">Zhejiang University, PhD in Urban Planning (master-to-PhD), adv. Prof. Yonghua Li</span><br><a class="minibtn" href="https://person.zju.edu.cn/liyonghua" target="_blank" rel="noopener"><span class="zh">导师主页 ↗</span><span class="en">Advisor’s homepage ↗</span></a></span></li>
-          <li><span class="t">2018–2022</span><span><span class="zh">规划设计师 · 厦门大学规划院、中国联合工程（均为甲级设计院）</span><span class="en">Urban planner, XMU Planning Institute & China United Engineering (Grade-A institutes)</span></span></li>
-          <li><span class="t">2013–2018</span><span><span class="zh">厦门大学 城乡规划 本科</span><span class="en">Xiamen University, B.Eng. in Urban Planning</span></span></li>
-        </ul>
-        <div class="awards">
-          <b><span class="zh">荣誉</span><span class="en">Awards</span></b><br>
-          <span class="zh">硕士研究生国家奖学金</span><span class="en">National Graduate Scholarship</span><br>
-          <span class="zh">浙江省规划科学技术进步奖（一等奖）</span><span class="en">Zhejiang Planning S&T Progress Award (1st Prize)</span>
-        </div>
-      </div>
-      <div>
-        <p class="bignum">4<span class="u"><span class="zh">年 · 甲级院 · 8+ 项目</span><span class="en">yrs · Grade-A · 8+ projects</span></span></p>
-        <ul class="abil">
-          <li><span class="zh">多个项目的负责人或执行负责人，主导从框架搭建到成果交付的全过程。</span><span class="en">Lead or executing lead on multiple projects, from framework to final delivery.</span></li>
-          <li><span class="zh">涉及旅游、社区、国土空间、现代农业等多类规划课题。</span><span class="en">Spanning tourism, community, territorial spatial planning, and modern agriculture.</span></li>
-          <li><span class="zh">承担规划文本与专题技术报告的核心编制工作。</span><span class="en">Core author of planning documents and specialized technical reports.</span></li>
-        </ul>
-        <div class="morelink">
-          <a class="btn ghost" href="./portfolio.pdf" target="_blank" rel="noopener"><span class="zh">规划作品集 ↗</span><span class="en">Planning portfolio ↗</span></a>
-          <a class="btn ghost" href="./project-list.html"><span class="zh">项目清单 ↗</span><span class="en">Project list ↗</span></a>
-        </div>
-      </div>
+  <!-- 04 capabilities -->
+  <section id="cap">
+    <div class="shead"><span class="idx">04</span><h2><span class="zh">专业能力</span><span class="en">Capabilities</span></h2><span class="line"></span></div>
+    <div class="caps">
+      <div class="cap"><div class="cn">01</div><h3><span class="zh">Vibe Coding / 全栈开发</span><span class="en">Vibe coding / full-stack</span></h3><p><span class="zh">Python、Multi-Agent 编排、Agent Loop、Tool Use、Context Engineering，独立完成从数据底座到前端交互的全链路产品。</span><span class="en">Python, multi-agent orchestration, agent loops, tool use and context engineering — builds full-chain products from data foundation to front-end.</span></p><div class="chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">SQLite</span><span class="chip">System Prompt</span></div></div>
+      <div class="cap"><div class="cn">02</div><h3><span class="zh">数据分析与建模</span><span class="en">Data analysis &amp; modeling</span></h3><p><span class="zh">机器学习、深度学习、SHAP 归因、因果推断、空间计量；多源数据采集、清洗与指标体系设计。</span><span class="en">Machine learning, deep learning, SHAP attribution, causal inference, spatial econometrics; multi-source data collection, cleaning and indicator design.</span></p><div class="chips"><span class="chip">Causal inference</span><span class="chip">SHAP</span><span class="chip">Spatial econ.</span></div></div>
+      <div class="cap"><div class="cn">03</div><h3><span class="zh">产品与系统设计</span><span class="en">Product &amp; system design</span></h3><p><span class="zh">从政府—企业—用户三方场景定义需求、交互与数据权限；设计 Multi-Agent 协作流程、质量门禁与熔断仲裁机制。</span><span class="en">Defines requirements, interaction and data-permission across government–enterprise–user scenarios; designs multi-agent workflows, quality gates and circuit-breaker arbitration.</span></p><div class="chips"><span class="chip"><span class="zh">需求分析</span><span class="en">Requirements</span></span><span class="chip"><span class="zh">系统架构</span><span class="en">Architecture</span></span><span class="chip"><span class="zh">质量保障</span><span class="en">Quality</span></span></div></div>
+      <div class="cap"><div class="cn">04</div><h3><span class="zh">领域基础</span><span class="en">Domain foundation</span></h3><p><span class="zh">四年甲级规划院实践、十年行业积累，覆盖国土空间规划、土地资源评估、生态系统服务与城市治理。</span><span class="en">Four years at Grade-A institutes and a decade in the field — territorial planning, land assessment, ecosystem services and urban governance.</span></p><div class="chips"><span class="chip"><span class="zh">城乡规划</span><span class="en">Urban planning</span></span><span class="chip"><span class="zh">国土空间</span><span class="en">Territorial</span></span><span class="chip"><span class="zh">公共治理</span><span class="en">Governance</span></span></div></div>
     </div>
   </section>
 
-  <section id="contact">
-    <div class="shead"><span class="idx">05</span><h2><span class="zh">联系</span><span class="en">Contact</span></h2><span class="rule"></span></div>
-    <div class="schema">
-      <div class="row"><span class="k">Email</span><span class="v"><a href="mailto:jhezhou@163.com">jhezhou@163.com</a> · <a href="mailto:jhezhou@gmail.com">jhezhou@gmail.com</a></span></div><div class="row"><span class="k"><span class="zh">电话 / 微信</span><span class="en">Phone / WeChat</span></span><span class="v"><a href="tel:17758010079">17758010079</a></span></div>
+  <!-- 05 contact -->
+  <section id="contact" class="contact">
+    <div class="shead"><span class="idx">05</span><h2><span class="zh">联系</span><span class="en">Contact</span></h2><span class="line"></span></div>
+    <div class="cblock">
+      <div class="row"><span class="k">Email</span><span class="v"><a href="mailto:jhezhou@163.com">jhezhou@163.com</a> · <a href="mailto:jhezhou@gmail.com">jhezhou@gmail.com</a></span></div>
+      <div class="row"><span class="k"><span class="zh">电话 / 微信</span><span class="en">Phone / WeChat</span></span><span class="v"><a href="tel:17758010079">177 5801 0079</a></span></div>
       <div class="row"><span class="k">GitHub</span><span class="v"><a href="https://github.com/HirezmingD" target="_blank" rel="noopener">github.com/HirezmingD</a></span></div>
       <div class="row"><span class="k"><span class="zh">所在地</span><span class="en">Location</span></span><span class="v"><span class="zh">中国 · 杭州</span><span class="en">Hangzhou, China</span></span></div>
     </div>
   </section>
+</div>
 </main>
 
 <footer>
-  <div class="footrow">
-    <span>© 2026 江和洲 · Hezhou Jiang</span>
-    <span><span class="zh">杭州</span><span class="en">Hangzhou</span></span>
-  </div>
+  <div class="wrap"><div class="footrow">
+    <span><span class="plus">+</span> © 2026 江和洲 · Hezhou Jiang</span>
+    <span>30.26°N · 120.15°E · <span class="zh">杭州</span><span class="en">Hangzhou</span> · <span class="zh">用 Claude Code 全栈构建</span><span class="en">built with Claude Code</span></span>
+  </div></div>
 </footer>
 
 <script>
@@ -364,12 +526,62 @@ footer{padding:34px 0 48px;border-top:1px solid var(--line);color:var(--muted);f
     var next=root.getAttribute('data-lang')==='zh'?'en':'zh';
     root.setAttribute('data-lang',next);root.setAttribute('lang',next);
   });
-  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  requestAnimationFrame(function(){document.body.classList.add('loaded');});
+
+  // expandable project cards
+  document.querySelectorAll('.plate .top').forEach(function(btn){
+    function toggle(){
+      var plate=btn.closest('.plate'),body=plate.querySelector('.body'),open=plate.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open?'true':'false');
+      body.style.maxHeight=open?body.scrollHeight+'px':'0px';
+    }
+    btn.addEventListener('click',toggle);
+    btn.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}
+    });
+  });
+
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce){
     var io=new IntersectionObserver(function(es){
       es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
     },{threshold:.12});
     document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
   }else{document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});}
+
+  // hero field: faint grid of cells, one-time accent sweep on load
+  (function(){
+    var c=document.getElementById('field');if(!c||reduce)return;
+    var ctx=c.getContext('2d'),W,H,cells=[],cs=26,t0=null,DUR=1500;
+    function build(){
+      var r=c.parentElement.getBoundingClientRect();
+      W=c.width=r.width*devicePixelRatio;H=c.height=r.height*devicePixelRatio;
+      c.style.width=r.width+'px';c.style.height=r.height+'px';
+      var g=cs*devicePixelRatio;cells=[];
+      for(var y=0;y<H;y+=g)for(var x=0;x<W;x+=g){
+        // bias density toward upper-right for a "data field" feel
+        if(Math.random()<0.5)cells.push({x:x,y:y,d:(x/W*0.6+ (1-y/H)*0.4)});
+      }
+    }
+    function draw(ts){
+      if(!t0)t0=ts;var p=Math.min((ts-t0)/DUR,1);
+      ctx.clearRect(0,0,W,H);var g=cs*devicePixelRatio;
+      for(var i=0;i<cells.length;i++){
+        var cell=cells[i],lit=p>cell.d;
+        var base=0.05+0.05*Math.sin(cell.x*0.02+cell.y*0.02);
+        if(lit && p-cell.d<0.12){ // brief accent flash as sweep passes
+          ctx.fillStyle='rgba(110,116,255,'+(0.55*(1-(p-cell.d)/0.12))+')';
+          ctx.fillRect(cell.x,cell.y,g-2*devicePixelRatio,g-2*devicePixelRatio);
+        }
+        ctx.fillStyle='rgba(155,160,166,'+(lit?base+0.02:0.02)+')';
+        ctx.fillRect(cell.x,cell.y,g-2*devicePixelRatio,g-2*devicePixelRatio);
+      }
+      if(p<1)requestAnimationFrame(draw);
+    }
+    function start(){build();t0=null;requestAnimationFrame(draw);}
+    start();
+    var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(start,200);});
+  })();
 </script>
 </body>
 </html>

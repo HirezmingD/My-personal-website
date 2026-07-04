@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
 <title>生态系统服务供需与驱动力 · 江和洲 Hezhou Jiang</title>
 <meta name="description" content="基于InVEST-OPGD-RF框架的浙江省县域生态系统服务供需时空演变及驱动力分析，环境科学 2025。">
 <style>
 :root{
-  --paper:#F6F7F9;--ink:#12161D;--muted:#59626F;--line:#E3E6EB;
-  --accent:#13497E;--accent-2:#2D6BB8;--card:#FFFFFF;--soft:#EEF1F5;
-  --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
-  --font-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono","Roboto Mono",monospace;
+  --paper:#F4F4EF;--ink:#0E1013;--muted:#6A6D66;--line:#DEDDD3;--line-2:#CBCABE;--redline:#2A31E0;
+  --accent:#2A31E0;--accent-2:#3B43FF;--card:#FCFCF9;--soft:#EBEBE3;
+  --font-sans:"Space Grotesk","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  --font-mono:"Space Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --wrap:860px;
 }
 *{box-sizing:border-box}
@@ -93,6 +94,11 @@ footer{padding:34px 0 52px;border-top:1px solid var(--line);color:var(--muted);f
 .lb img{max-width:100%;max-height:100%;border-radius:4px}
 
 @media (max-width:640px){section{padding:38px 0}.head{padding:38px 0 30px}h1{font-size:1.7rem}}
+
+/* --- unified identity v3 (ultramarine) --- */
+::selection{background:var(--accent-2);color:#fff}
+.eyebrow::before{content:"+ ";color:var(--accent);font-family:var(--font-mono)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
 </style>
 </head>
 <body>

@@ -17,3 +17,6 @@ tmp_*/
 
 # Allow PDFs in docs/ (website assets)
 !docs/*.pdf
+!docs_V1.0/*.pdf
+!docs_V1.1/*.pdf
+!docs_V2.0/*.pdf
